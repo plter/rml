@@ -24,7 +24,7 @@ public:
     virtual void documentEnd(){
         printf("End Doc\n");
     };
-    virtual void startElement(std::u16string elementName,std::map<std::u16string, std::u16string> attrs){
+    virtual void startElement(std::u16string & elementName,std::map<std::u16string, std::u16string> & attrs){
         static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> cvt;
         std::cout<<"Start "<<cvt.to_bytes(elementName)<<"\n";
         
@@ -32,15 +32,15 @@ public:
             std::cout<<"Name:"<<cvt.to_bytes(attrs[u"name"])<<",Age:"<<cvt.to_bytes(attrs[u"age"])<<"\n";
         }
     };
-    virtual void endElement(std::u16string elementName){
+    virtual void endElement(std::u16string & elementName){
         std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> cvt;
         std::cout<<"End "<<cvt.to_bytes(elementName)<<"\n";
     };
-    virtual void foundText(std::u16string text){
+    virtual void foundText(std::u16string & text){
         std::cout<<"Text Content : ";
         RMLTool::trace(text);
     };
-    virtual void foundComment(std::u16string comment){
+    virtual void foundComment(std::u16string & comment){
         std::cout<<"Comment : ";
         RMLTool::trace(comment);
     };
