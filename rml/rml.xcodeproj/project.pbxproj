@@ -7,53 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3173073919B9CE6C00108DA9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3173073819B9CE6C00108DA9 /* main.cpp */; };
-		3173073B19B9CE6C00108DA9 /* rml.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3173073A19B9CE6C00108DA9 /* rml.1 */; };
-		31C4575F19BA134400916C60 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31C4575E19BA134400916C60 /* main.cpp */; };
+		31014DE419BB589A00330CCA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31014DE319BB589A00330CCA /* main.cpp */; };
+		31014DE619BB589A00330CCA /* rml.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31014DE519BB589A00330CCA /* rml.1 */; };
+		31014DF819BB58DA00330CCA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31014DF719BB58DA00330CCA /* main.cpp */; };
+		31014DFA19BB58DA00330CCA /* T001ReadRML.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31014DF919BB58DA00330CCA /* T001ReadRML.1 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3173073319B9CE6C00108DA9 /* CopyFiles */ = {
+		31014DDE19BB589A00330CCA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				3173073B19B9CE6C00108DA9 /* rml.1 in CopyFiles */,
+				31014DE619BB589A00330CCA /* rml.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		31C4575A19BA134400916C60 /* CopyFiles */ = {
+		31014DF319BB58DA00330CCA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
+				31014DFA19BB58DA00330CCA /* T001ReadRML.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3173073519B9CE6C00108DA9 /* rml */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rml; sourceTree = BUILT_PRODUCTS_DIR; };
-		3173073819B9CE6C00108DA9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		3173073A19B9CE6C00108DA9 /* rml.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = rml.1; sourceTree = "<group>"; };
-		3173074119B9CEB900108DA9 /* RMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLReader.h; sourceTree = "<group>"; };
-		3173074319B9D08600108DA9 /* RMLReaderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLReaderDelegate.h; sourceTree = "<group>"; };
-		31C4575C19BA134400916C60 /* T001ReadRML */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = T001ReadRML; sourceTree = BUILT_PRODUCTS_DIR; };
-		31C4575E19BA134400916C60 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		31C4576319BA195600916C60 /* RMLTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLTool.h; sourceTree = "<group>"; };
+		31014DE019BB589A00330CCA /* rml */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rml; sourceTree = BUILT_PRODUCTS_DIR; };
+		31014DE319BB589A00330CCA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		31014DE519BB589A00330CCA /* rml.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = rml.1; sourceTree = "<group>"; };
+		31014DEC19BB58B500330CCA /* RMLObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLObject.h; sourceTree = "<group>"; };
+		31014DED19BB58B500330CCA /* RMLReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLReader.h; sourceTree = "<group>"; };
+		31014DEE19BB58B500330CCA /* RMLReaderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLReaderDelegate.h; sourceTree = "<group>"; };
+		31014DEF19BB58B500330CCA /* RMLTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLTool.h; sourceTree = "<group>"; };
+		31014DF019BB58B500330CCA /* RMLTranslator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLTranslator.h; sourceTree = "<group>"; };
+		31014DF519BB58DA00330CCA /* T001ReadRML */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = T001ReadRML; sourceTree = BUILT_PRODUCTS_DIR; };
+		31014DF719BB58DA00330CCA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		31014DF919BB58DA00330CCA /* T001ReadRML.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = T001ReadRML.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3173073219B9CE6C00108DA9 /* Frameworks */ = {
+		31014DDD19BB589A00330CCA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		31C4575919BA134400916C60 /* Frameworks */ = {
+		31014DF219BB58DA00330CCA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,48 +68,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3173072C19B9CE6C00108DA9 = {
+		31014DD719BB589A00330CCA = {
 			isa = PBXGroup;
 			children = (
-				3173073719B9CE6C00108DA9 /* rml */,
-				31C4575D19BA134400916C60 /* T001ReadRML */,
-				3173073619B9CE6C00108DA9 /* Products */,
+				31014DE219BB589A00330CCA /* rml */,
+				31014DF619BB58DA00330CCA /* T001ReadRML */,
+				31014DE119BB589A00330CCA /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		3173073619B9CE6C00108DA9 /* Products */ = {
+		31014DE119BB589A00330CCA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3173073519B9CE6C00108DA9 /* rml */,
-				31C4575C19BA134400916C60 /* T001ReadRML */,
+				31014DE019BB589A00330CCA /* rml */,
+				31014DF519BB58DA00330CCA /* T001ReadRML */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3173073719B9CE6C00108DA9 /* rml */ = {
+		31014DE219BB589A00330CCA /* rml */ = {
 			isa = PBXGroup;
 			children = (
-				3173074219B9CECA00108DA9 /* rml */,
-				3173073819B9CE6C00108DA9 /* main.cpp */,
-				3173073A19B9CE6C00108DA9 /* rml.1 */,
+				31014DEC19BB58B500330CCA /* RMLObject.h */,
+				31014DED19BB58B500330CCA /* RMLReader.h */,
+				31014DEE19BB58B500330CCA /* RMLReaderDelegate.h */,
+				31014DEF19BB58B500330CCA /* RMLTool.h */,
+				31014DF019BB58B500330CCA /* RMLTranslator.h */,
+				31014DE319BB589A00330CCA /* main.cpp */,
+				31014DE519BB589A00330CCA /* rml.1 */,
 			);
 			path = rml;
 			sourceTree = "<group>";
 		};
-		3173074219B9CECA00108DA9 /* rml */ = {
+		31014DF619BB58DA00330CCA /* T001ReadRML */ = {
 			isa = PBXGroup;
 			children = (
-				3173074119B9CEB900108DA9 /* RMLReader.h */,
-				3173074319B9D08600108DA9 /* RMLReaderDelegate.h */,
-				31C4576319BA195600916C60 /* RMLTool.h */,
-			);
-			name = rml;
-			sourceTree = "<group>";
-		};
-		31C4575D19BA134400916C60 /* T001ReadRML */ = {
-			isa = PBXGroup;
-			children = (
-				31C4575E19BA134400916C60 /* main.cpp */,
+				31014DF719BB58DA00330CCA /* main.cpp */,
+				31014DF919BB58DA00330CCA /* T001ReadRML.1 */,
 			);
 			path = T001ReadRML;
 			sourceTree = "<group>";
@@ -112,13 +112,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3173073419B9CE6C00108DA9 /* rml */ = {
+		31014DDF19BB589A00330CCA /* rml */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3173073E19B9CE6C00108DA9 /* Build configuration list for PBXNativeTarget "rml" */;
+			buildConfigurationList = 31014DE919BB589A00330CCA /* Build configuration list for PBXNativeTarget "rml" */;
 			buildPhases = (
-				3173073119B9CE6C00108DA9 /* Sources */,
-				3173073219B9CE6C00108DA9 /* Frameworks */,
-				3173073319B9CE6C00108DA9 /* CopyFiles */,
+				31014DDC19BB589A00330CCA /* Sources */,
+				31014DDD19BB589A00330CCA /* Frameworks */,
+				31014DDE19BB589A00330CCA /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -126,16 +126,16 @@
 			);
 			name = rml;
 			productName = rml;
-			productReference = 3173073519B9CE6C00108DA9 /* rml */;
+			productReference = 31014DE019BB589A00330CCA /* rml */;
 			productType = "com.apple.product-type.tool";
 		};
-		31C4575B19BA134400916C60 /* T001ReadRML */ = {
+		31014DF419BB58DA00330CCA /* T001ReadRML */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31C4576219BA134400916C60 /* Build configuration list for PBXNativeTarget "T001ReadRML" */;
+			buildConfigurationList = 31014DFB19BB58DA00330CCA /* Build configuration list for PBXNativeTarget "T001ReadRML" */;
 			buildPhases = (
-				31C4575819BA134400916C60 /* Sources */,
-				31C4575919BA134400916C60 /* Frameworks */,
-				31C4575A19BA134400916C60 /* CopyFiles */,
+				31014DF119BB58DA00330CCA /* Sources */,
+				31014DF219BB58DA00330CCA /* Frameworks */,
+				31014DF319BB58DA00330CCA /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -143,62 +143,57 @@
 			);
 			name = T001ReadRML;
 			productName = T001ReadRML;
-			productReference = 31C4575C19BA134400916C60 /* T001ReadRML */;
+			productReference = 31014DF519BB58DA00330CCA /* T001ReadRML */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		3173072D19B9CE6C00108DA9 /* Project object */ = {
+		31014DD819BB589A00330CCA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = plter;
-				TargetAttributes = {
-					31C4575B19BA134400916C60 = {
-						CreatedOnToolsVersion = 6.0;
-					};
-				};
 			};
-			buildConfigurationList = 3173073019B9CE6C00108DA9 /* Build configuration list for PBXProject "rml" */;
+			buildConfigurationList = 31014DDB19BB589A00330CCA /* Build configuration list for PBXProject "rml" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 3173072C19B9CE6C00108DA9;
-			productRefGroup = 3173073619B9CE6C00108DA9 /* Products */;
+			mainGroup = 31014DD719BB589A00330CCA;
+			productRefGroup = 31014DE119BB589A00330CCA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3173073419B9CE6C00108DA9 /* rml */,
-				31C4575B19BA134400916C60 /* T001ReadRML */,
+				31014DDF19BB589A00330CCA /* rml */,
+				31014DF419BB58DA00330CCA /* T001ReadRML */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3173073119B9CE6C00108DA9 /* Sources */ = {
+		31014DDC19BB589A00330CCA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3173073919B9CE6C00108DA9 /* main.cpp in Sources */,
+				31014DE419BB589A00330CCA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		31C4575819BA134400916C60 /* Sources */ = {
+		31014DF119BB58DA00330CCA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31C4575F19BA134400916C60 /* main.cpp in Sources */,
+				31014DF819BB58DA00330CCA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3173073C19B9CE6C00108DA9 /* Debug */ = {
+		31014DE719BB589A00330CCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -236,7 +231,7 @@
 			};
 			name = Debug;
 		};
-		3173073D19B9CE6C00108DA9 /* Release */ = {
+		31014DE819BB589A00330CCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -268,40 +263,34 @@
 			};
 			name = Release;
 		};
-		3173073F19B9CE6C00108DA9 /* Debug */ = {
+		31014DEA19BB589A00330CCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		3173074019B9CE6C00108DA9 /* Release */ = {
+		31014DEB19BB589A00330CCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
-		31C4576019BA134400916C60 /* Debug */ = {
+		31014DFC19BB58DA00330CCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		31C4576119BA134400916C60 /* Release */ = {
+		31014DFD19BB58DA00330CCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -309,33 +298,32 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3173073019B9CE6C00108DA9 /* Build configuration list for PBXProject "rml" */ = {
+		31014DDB19BB589A00330CCA /* Build configuration list for PBXProject "rml" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3173073C19B9CE6C00108DA9 /* Debug */,
-				3173073D19B9CE6C00108DA9 /* Release */,
+				31014DE719BB589A00330CCA /* Debug */,
+				31014DE819BB589A00330CCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3173073E19B9CE6C00108DA9 /* Build configuration list for PBXNativeTarget "rml" */ = {
+		31014DE919BB589A00330CCA /* Build configuration list for PBXNativeTarget "rml" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3173073F19B9CE6C00108DA9 /* Debug */,
-				3173074019B9CE6C00108DA9 /* Release */,
+				31014DEA19BB589A00330CCA /* Debug */,
+				31014DEB19BB589A00330CCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		31C4576219BA134400916C60 /* Build configuration list for PBXNativeTarget "T001ReadRML" */ = {
+		31014DFB19BB58DA00330CCA /* Build configuration list for PBXNativeTarget "T001ReadRML" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				31C4576019BA134400916C60 /* Debug */,
-				31C4576119BA134400916C60 /* Release */,
+				31014DFC19BB58DA00330CCA /* Debug */,
+				31014DFD19BB58DA00330CCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 3173072D19B9CE6C00108DA9 /* Project object */;
+	rootObject = 31014DD819BB589A00330CCA /* Project object */;
 }

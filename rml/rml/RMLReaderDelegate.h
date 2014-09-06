@@ -10,9 +10,10 @@
 #define rml_RMLReaderDelegate_h
 
 #include <map>
+#include "RMLObject.h"
 
 namespace rml {
-    class RMLReaderDelegate{
+    class IReaderDelegate{
         
     public:
         virtual void documentStart(){};
@@ -21,6 +22,7 @@ namespace rml {
         virtual void endElement(std::u16string & elementName){};
         virtual void foundText(std::u16string & text){};
         virtual void foundComment(std::u16string & comment){};
+        virtual ~IReaderDelegate(){};
     };
 }
 

@@ -16,7 +16,7 @@
 
 namespace rml {
     
-    class RMLTool{
+    class Tool{
         
         
     public:

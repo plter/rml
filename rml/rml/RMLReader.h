@@ -14,14 +14,15 @@
 #include "RMLReaderDelegate.h"
 #include <map>
 #include "RMLTool.h"
+#include "RMLObject.h"
 
 namespace rml {
     
-    class RMLReader{
+    class Reader:public Object{
         
     private:
         std::u16string _rmlContent;
-        RMLReaderDelegate * _delegate;
+        IReaderDelegate * _delegate;
         
     public:
         /********************************
@@ -29,12 +30,14 @@ namespace rml {
          @param rmlContent  The rml file content
          @param delegate    The delegate to parse rml file
          ********************************/
-        RMLReader(std::u16string & rmlContent,RMLReaderDelegate & delegate){
+        Reader(std::u16string & rmlContent,IReaderDelegate * delegate){
             _rmlContent = rmlContent;
-            _delegate = &delegate;
+            _delegate = delegate;
+            
+            dynamic_cast<Object*>(_delegate)->retain();
         };
         
-        void parse(){
+        void read(){
             
             long size = _rmlContent.size();
             
@@ -142,8 +145,8 @@ namespace rml {
             }
         };
         
-        virtual ~ RMLReader(){
-            
+        virtual ~ Reader(){
+            dynamic_cast<Object*>(_delegate)->release();
         };
     };
 }

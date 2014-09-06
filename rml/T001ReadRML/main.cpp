@@ -11,11 +11,10 @@
 #include "RMLReaderDelegate.h"
 #include <codecvt>
 #include "RMLTool.h"
+#include "RMLObject.h"
 
-using namespace rml;
 
-
-class MyDelegate:public RMLReaderDelegate {
+class MyDelegate:public rml::Object,public rml::IReaderDelegate {
     
 public:
     virtual void documentStart(){
@@ -38,14 +37,13 @@ public:
     };
     virtual void foundText(std::u16string & text){
         std::cout<<"Text Content : ";
-        RMLTool::trace(text);
+        rml::Tool::trace(text);
     };
     virtual void foundComment(std::u16string & comment){
         std::cout<<"Comment : ";
-        RMLTool::trace(comment);
+        rml::Tool::trace(comment);
     };
 };
-
 
 
 
@@ -53,10 +51,12 @@ int main(int argc, const char * argv[]) {
     
     std::u16string rmlData = u"<data><!--Hello 你好--><person age=\"20\" name=\"ZhangSan\">Haha</person></data>";
     
-    MyDelegate delegate;
-    RMLReader r(rmlData,delegate);
-    r.parse();
+    MyDelegate * delegate = new MyDelegate();
     
+    rml::Reader r(rmlData,delegate);
+    delegate->release();
+    
+    r.read();
     
     return 0;
 }
