@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "RMLReader.h"
-#include "RMLReaderDelegate.h"
+#include "RMLIReaderDelegate.h"
 #include <codecvt>
 #include "RMLTool.h"
 #include "RMLObject.h"
@@ -52,7 +52,6 @@ int main(int argc, const char * argv[]) {
     std::u16string rmlData = u"<data><!--Hello 你好--><person age=\"20\" name=\"ZhangSan\">Haha</person></data>";
     
     MyDelegate * delegate = new MyDelegate();
-    
     rml::Reader r(rmlData,delegate);
     delegate->release();
     

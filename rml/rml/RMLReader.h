@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include <string>
-#include "RMLReaderDelegate.h"
+#include "RMLIReaderDelegate.h"
 #include <map>
 #include "RMLTool.h"
 #include "RMLObject.h"

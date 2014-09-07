@@ -11,17 +11,55 @@
 
 #include <string>
 #include "RMLReader.h"
+#include "RMLObject.h"
+#include "RMLIReaderDelegate.h"
+#include "RMLBlock.h"
 
 namespace rml {
-    class Translator:Object{
+    class Translator:public Object,IReaderDelegate{
         
     public:
-        Translator(std::u16string & rmlContent){
-            _reader = new Reader(rmlContent,this);
-            
+        Translator(){
+            _currentReader = NULL;
+            _currentBlock = NULL;
+            _rootBlock = NULL;
         };
+        
+        Block * translate(std::u16string & rmlContent){
+            if (_currentReader) {
+                _currentReader->release();
+            }
+            _currentReader = new Reader(rmlContent,this);
+            
+            if (_currentBlock) {
+                _currentBlock->release();
+            }
+            _currentReader->read();
+            return _rootBlock;
+        };
+        
+        virtual void documentStart(){
+            //TODO
+        };
+        virtual void documentEnd(){
+            //TODO
+        };
+        virtual void startElement(std::u16string & elementName,std::map<std::u16string, std::u16string> & attrs){
+            //TODO
+        };
+        virtual void endElement(std::u16string & elementName){
+            //TODO
+        };
+        virtual void foundText(std::u16string & text){
+            //TODO
+        };
+        virtual void foundComment(std::u16string & comment){
+            //TODO
+        };
+        
+        
         virtual ~Translator(){
-            _reader->release();
+            _currentReader->release();
         };
         
     public:
@@ -36,7 +74,8 @@ namespace rml {
         };
         
     private:
-        Reader * _reader;
+        Reader * _currentReader;
+        Block * _currentBlock,*_rootBlock;
     };
 }
 

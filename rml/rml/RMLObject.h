@@ -36,7 +36,6 @@ namespace rml {
         }
         
         virtual ~Object(){
-            
         };
         
     private:

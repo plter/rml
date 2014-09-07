@@ -42,12 +42,13 @@
 		31014DE519BB589A00330CCA /* rml.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = rml.1; sourceTree = "<group>"; };
 		31014DEC19BB58B500330CCA /* RMLObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLObject.h; sourceTree = "<group>"; };
 		31014DED19BB58B500330CCA /* RMLReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLReader.h; sourceTree = "<group>"; };
-		31014DEE19BB58B500330CCA /* RMLReaderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLReaderDelegate.h; sourceTree = "<group>"; };
+		31014DEE19BB58B500330CCA /* RMLIReaderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLIReaderDelegate.h; sourceTree = "<group>"; };
 		31014DEF19BB58B500330CCA /* RMLTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLTool.h; sourceTree = "<group>"; };
 		31014DF019BB58B500330CCA /* RMLTranslator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLTranslator.h; sourceTree = "<group>"; };
 		31014DF519BB58DA00330CCA /* T001ReadRML */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = T001ReadRML; sourceTree = BUILT_PRODUCTS_DIR; };
 		31014DF719BB58DA00330CCA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		31014DF919BB58DA00330CCA /* T001ReadRML.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = T001ReadRML.1; sourceTree = "<group>"; };
+		315E425619BB635900ACDBD7 /* RMLBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMLBlock.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +92,10 @@
 			children = (
 				31014DEC19BB58B500330CCA /* RMLObject.h */,
 				31014DED19BB58B500330CCA /* RMLReader.h */,
-				31014DEE19BB58B500330CCA /* RMLReaderDelegate.h */,
+				31014DEE19BB58B500330CCA /* RMLIReaderDelegate.h */,
 				31014DEF19BB58B500330CCA /* RMLTool.h */,
 				31014DF019BB58B500330CCA /* RMLTranslator.h */,
+				315E425619BB635900ACDBD7 /* RMLBlock.h */,
 				31014DE319BB589A00330CCA /* main.cpp */,
 				31014DE519BB589A00330CCA /* rml.1 */,
 			);
@@ -314,6 +316,7 @@
 				31014DEB19BB589A00330CCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		31014DFB19BB58DA00330CCA /* Build configuration list for PBXNativeTarget "T001ReadRML" */ = {
 			isa = XCConfigurationList;
@@ -322,6 +325,7 @@
 				31014DFD19BB58DA00330CCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

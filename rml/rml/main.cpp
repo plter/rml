@@ -7,6 +7,9 @@
 //
 
 #include <iostream>
+#include "RMLTranslator.h"
+#include "RMLBlock.h"
+#include "RMLFile.h"
 
 int main(int argc, const char * argv[])
 {
