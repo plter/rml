@@ -60,7 +60,6 @@ namespace rml {
                     currentC = currentStr[0];
                     if (currentC=='/') {//end element
                         std::u16string endElementName = currentStr.substr(1,currentStr.size()-1);
-                        _delegate->endElement(endElementName);
                         
                         if (contentTextBegin) {
                             //found a text content. @mark(readTextContent) content text end
@@ -72,6 +71,8 @@ namespace rml {
                             
                             contentTextBegin = 0;
                         }
+                        
+                        _delegate->endElement(endElementName);
                         
                         inCount--;
                         if (inCount<=0) {
@@ -140,6 +141,9 @@ namespace rml {
                         }
                         
                         _delegate->startElement(elementName, attrs);
+                        if (currentStr[currentStr.size()-1]=='/') {
+                            _delegate->endElement(elementName);
+                        }
                     }
                 }
             }

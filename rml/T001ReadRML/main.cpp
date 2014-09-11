@@ -49,7 +49,7 @@ public:
 
 int main(int argc, const char * argv[]) {
     
-    std::u16string rmlData = u"<data><!--Hello 你好--><person age=\"20\" name=\"ZhangSan\">Haha</person></data>";
+    std::u16string rmlData = u"<data><!--Hello 你好--><person age=\"20\" name=\"ZhangSan\">Haha</person><person name=\"Lisi\" age=\"18\"/></data>";
     
     MyDelegate * delegate = new MyDelegate();
     rml::Reader r(rmlData,delegate);
