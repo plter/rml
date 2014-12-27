@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>T001ReadRML.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
 		<key>rml.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,12 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>31014DDF19BB589A00330CCA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>31014DF419BB58DA00330CCA</key>
+		<key>317D2C411A4E844D002374C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>6D5A1D81-BCEB-496A-8D94-1DB1B7EC9CED</string>
+	<string>54982890-BB1B-46E6-A49A-6D3724F98126</string>
 	<key>IDESourceControlProjectName</key>
 	<string>rml</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/plter/rml.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>rml.xcworkspace</string>
+	<string>rml/rml.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2EAD4C209D0949247BF15D2D7BD9F7A56C30C117</key>
-		<string>..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/plter/rml.git</string>
