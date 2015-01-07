@@ -10,10 +10,11 @@
 #define rml_RMLTranslator_h
 
 #include <string>
+
+#include "RMLFunc.h"
 #include "RMLReader.h"
 #include "RMLObject.h"
 #include "RMLIReaderDelegate.h"
-#include "RMLBlock.h"
 
 namespace rml {
     class Translator:public Object,IReaderDelegate{
@@ -25,7 +26,7 @@ namespace rml {
             _rootBlock = NULL;
         };
         
-        Block * translate(std::u16string & rmlContent){
+        Func * translate(std::string & rmlContent){
             if (_currentReader) {
                 _currentReader->release();
             }
@@ -44,16 +45,16 @@ namespace rml {
         virtual void documentEnd(){
             //TODO
         };
-        virtual void startElement(std::u16string & elementName,std::map<std::u16string, std::u16string> & attrs){
+        virtual void startElement(std::string & elementName,std::map<std::string, std::string> & attrs){
             //TODO
         };
-        virtual void endElement(std::u16string & elementName){
+        virtual void endElement(std::string & elementName){
             //TODO
         };
-        virtual void foundText(std::u16string & text){
+        virtual void foundText(std::string & text){
             //TODO
         };
-        virtual void foundComment(std::u16string & comment){
+        virtual void foundComment(std::string & comment){
             //TODO
         };
         
@@ -75,7 +76,7 @@ namespace rml {
         
     private:
         Reader * _currentReader;
-        Block * _currentBlock,*_rootBlock;
+        Func * _currentBlock,*_rootBlock;
     };
 }
 

@@ -1,39 +1,34 @@
 //
-//  RMLBlock.h
+//  RMLFunc.h
 //  rml
 //
 //  Created by plter on 9/6/14.
 //  Copyright (c) 2014 plter. All rights reserved.
 //
 
-#ifndef rml_RMLBlock_h
-#define rml_RMLBlock_h
+#pragma once
 
 #include "RMLObject.h"
 #include <map>
 #include <string>
 
 namespace rml {
-    class Block:public Object{
+    class Func:public Object{
         
     public:
-        Block(){};
-        virtual ~Block(){};
+        Func();
+        virtual ~Func();
         
     public:
-        void addBlock(){
-            
-        };
+        void addFunc();
         
-        std::u16string getName(){
+        inline std::string getName(){
             return _name;
         };
         
         
     private:
-        std::u16string _name;
+        std::string _name;
     };
 }
 
-
-#endif

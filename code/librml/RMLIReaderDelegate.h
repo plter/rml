@@ -18,10 +18,11 @@ namespace rml {
     public:
         virtual void documentStart(){};
         virtual void documentEnd(){};
-        virtual void startElement(std::u16string & elementName,std::map<std::u16string, std::u16string> & attrs){};
-        virtual void endElement(std::u16string & elementName){};
-        virtual void foundText(std::u16string & text){};
-        virtual void foundComment(std::u16string & comment){};
+        virtual void startElement(std::string & elementName,std::map<std::string, std::string> & attrs){};
+        virtual void endElement(std::string & elementName){};
+        virtual void foundText(std::string & text){};
+        virtual void foundComment(std::string & comment){};
+        virtual ~IReaderDelegate(){};
     };
 }
 

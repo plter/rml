@@ -1,0 +1,127 @@
+/*
+ * RMLReader.cpp
+ *
+ *  Created on: Jan 7, 2015
+ *      Author: plter
+ */
+
+#include "RMLReader.h"
+
+void rml::Reader::read() {
+	long size = _rmlContent.size();
+
+	_delegate->documentStart();
+	int inCount = 0;
+	std::string currentStr;
+	char16_t currentC;
+	int contentTextBegin = 0; //init content begin index
+
+	for (int i = 0; i < size; ++i) {
+
+		if (_rmlContent[i] == '<') {
+			currentStr = "";
+			for (int j = i + 1; j < size && (currentC = _rmlContent[j]) != '>';
+					++j) {
+				currentStr += currentC;
+			}
+			i += currentStr.size() + 1;
+			long currentStrSize = currentStr.size();
+
+			currentC = currentStr[0];
+			if (currentC == '/') { //end element
+				std::string endElementName = currentStr.substr(1,
+						currentStr.size() - 1);
+
+				if (contentTextBegin) {
+					//found a text content. @mark(readTextContent) content text end
+					std::string textContent = _rmlContent.substr(
+							contentTextBegin,
+							i - contentTextBegin - currentStrSize - 1);
+
+					if (!textContent.empty()) {
+						_delegate->foundText(textContent);
+					}
+
+					contentTextBegin = 0;
+				}
+
+				_delegate->endElement(endElementName);
+
+				inCount--;
+				if (inCount <= 0) {
+					_delegate->documentEnd();
+
+					return; //break all loop
+				}
+			} else if (currentC == '!') { //the currentStr is a comment
+				std::string comment = currentStr.substr(1,
+						currentStr.size() - 1);
+				_delegate->foundComment(comment);
+			} else { //start element
+				inCount++;
+
+				//Set current content text begin index. @mark(readTextContent) content text begin
+				contentTextBegin = i + 1;
+
+				std::map<std::string, std::string> attrs;
+				std::string elementName;
+
+				int k = 0;
+				//read element name
+				for (; k < currentStrSize && (currentC = currentStr[k]) != ' ';
+						++k) {
+					elementName += currentC;
+				}
+
+				//read kvs
+				for (; k < currentStrSize; ++k) {
+
+					if (currentStr[k] == '=') {
+						std::string key, value;
+
+						//find key
+						for (int a = k - 1; a > 0; --a) {
+							currentC = currentStr[a];
+
+							if (currentC != ' ') {
+								for (int b = a; b > 0 && (currentC =
+										currentStr[b]) != ' '; --b) {
+									key += currentC;
+								}
+
+								std::string tmp = key;
+								key.assign(tmp.rbegin(), tmp.rend());
+								break;
+							}
+						}
+
+						//find value
+						for (int c = k; c < currentStrSize; ++c) {
+							currentC = currentStr[c];
+
+							if (currentC == '"') {
+								for (int d = c + 1;
+										d < currentStrSize && (currentC =
+												currentStr[d]) != '"'; ++d) {
+									value += currentC;
+
+									k = d;
+								}
+
+								break;
+							}
+						}
+
+						attrs[key] = value;
+					}
+				}
+
+				_delegate->startElement(elementName, attrs);
+				if (currentStr[currentStr.size() - 1] == '/') {
+					_delegate->endElement(elementName);
+				}
+			}
+		}
+	}
+}
+

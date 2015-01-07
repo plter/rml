@@ -19,15 +19,15 @@ namespace rml {
             _retainCount = 1;
         };
         
-        int retainCount(){
+        inline int retainCount(){
             return _retainCount;
         };
         
-        void retain(){
+        inline void retain(){
             _retainCount++;
         }
         
-        void release(){
+        inline void release(){
             _retainCount--;
             
             if (_retainCount<=0) {
