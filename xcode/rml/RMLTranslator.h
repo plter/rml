@@ -11,7 +11,7 @@
 
 #include <string>
 
-#include "RMLFunc.h"
+#include "RMLCall.h"
 #include "RMLReader.h"
 #include "RMLObject.h"
 #include "RMLIReaderDelegate.h"
@@ -26,7 +26,7 @@ namespace rml {
             _rootBlock = NULL;
         };
         
-        Func * translate(std::string & rmlContent){
+        Call * translate(std::string & rmlContent){
             if (_currentReader) {
                 _currentReader->release();
             }
@@ -76,7 +76,7 @@ namespace rml {
         
     private:
         Reader * _currentReader;
-        Func * _currentBlock,*_rootBlock;
+        Call * _currentBlock,*_rootBlock;
     };
 }
 

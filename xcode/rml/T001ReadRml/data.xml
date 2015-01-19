@@ -1,0 +1,8 @@
+<data>
+	<!--Hello 你好-->
+	<person age="20" name="ZhangSan">
+		Haha
+		<hehe></hehe>
+	</person>
+	<person name="Lisi" age="18"/>
+</data>
