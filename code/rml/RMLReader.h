@@ -16,6 +16,8 @@
 #include "RMLObject.h"
 
 namespace rml {
+    
+    class IReaderDelegate;
 
     class Reader:public Object{
 
@@ -41,6 +43,13 @@ namespace rml {
          @param delegate    The delegate to parse rml file
          ********************************/
         Reader(std::string & rmlContent,IReaderDelegate * delegate);
+        
+        inline IReaderDelegate * getDelegate(){
+            return _delegate;
+        };
+        inline void setDelegate(IReaderDelegate * delegate){
+            _delegate = delegate;
+        };
         virtual ~ Reader();
 
         void read();

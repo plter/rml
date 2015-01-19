@@ -7,13 +7,13 @@
 //
 
 #include <iostream>
-#include "RMLContext.h"
+#include <RMLContext.h>
 
 using namespace std;
 
 int main() {
-    
-    rml::Context c;
+
+    rml::Context c(NULL);
     c.runFile("app.xml");
     return 0;
 }

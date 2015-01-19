@@ -10,34 +10,37 @@
 
 #include <string>
 
-#include "RMLCall.h"
 #include "RMLObject.h"
 #include "RMLReader.h"
 #include "RMLIReaderDelegate.h"
+
 
 namespace rml{
 
 class Context:public rml::Object,public rml::IReaderDelegate{
 
 private:
-	rml::Call * _currentCall;
 	bool _inArg;
+    Context * _parent;
 
 public:
-	Context();
+	Context(Context * parent);
 	virtual ~Context();
 
 public:
 	void runText(std::string rmlText);
 	void runFile(std::string filePath);
+    inline Context * getParentContext(){
+        return _parent;
+    };
 
 public://implement IReaderDelegate
-	virtual void documentStart();
-	virtual void documentEnd();
-	virtual void startElement(std::string & elementName,std::map<std::string, std::string> & attrs);
-	virtual void endElement(std::string & elementName);
-	virtual void foundText(std::string & text);
-	virtual void foundComment(std::string & comment);
+	virtual void documentStart(Reader *reader);
+	virtual void documentEnd(Reader *reader);
+	virtual void startElement(Reader *reader,std::string & elementName,std::map<std::string, std::string> & attrs);
+	virtual void endElement(Reader *reader,std::string & elementName);
+	virtual void foundText(Reader *reader,std::string & text);
+	virtual void foundComment(Reader *reader,std::string & comment);
 };
 
 } /* namespace rml */

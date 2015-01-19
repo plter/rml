@@ -41,7 +41,7 @@ Library* Library::getInstance() {
 
 void Library::addSystemFuncs() {
 	//add print func
-	auto f = new rml::funcs::PrintFunc();
+	rml::funcs::PrintFunc * f = new rml::funcs::PrintFunc();
 	addFunc(f);
 }
 

@@ -28,7 +28,7 @@ public:
 	};
 
 	void pop(){
-		auto back = _vect.back();
+		T back = _vect.back();
 		_vect.pop_back();
 		back->release();
 	}
