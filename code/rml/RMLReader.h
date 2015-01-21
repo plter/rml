@@ -16,44 +16,45 @@
 #include "RMLObject.h"
 
 namespace rml {
-    
-    class IReaderDelegate;
 
-    class Reader:public Object{
+class IReaderDelegate;
 
-    private:
-        std::string _rmlContent;
-        IReaderDelegate * _delegate;
-        int32_t _inCount;
-        uint32_t _currentIndex;
-        int32_t _leftAngleBracketIndex;
-        int32_t _rightAngleBracketIndex;
-        bool _docEnded;
+class Reader:public Object{
 
-    private:
-        void startElement(std::string & elementName,std::map<std::string, std::string> & attrs);
-        void endElement(std::string & elementName);
-        void parseTagContentString(std::string tagContentString);
-        void tryToFindContentText();
+private:
+	std::string _rmlContent;
+	IReaderDelegate * _delegate;
+	int32_t _inCount;
+	uint32_t _currentIndex;
+	int32_t _leftAngleBracketIndex;
+	int32_t _rightAngleBracketIndex;
+	bool _docEnded;
 
-    public:
-        /********************************
+private:
+	void startElement(std::string & elementName,std::map<std::string, std::string> & attrs);
+	void endElement(std::string & elementName);
+	void parseTagContentString(std::string tagContentString);
+	void tryToFindContentText();
+
+public:
+	/********************************
          Construct a RMLReader object
          @param rmlContent  The rml file content
          @param delegate    The delegate to parse rml file
-         ********************************/
-        Reader(std::string & rmlContent,IReaderDelegate * delegate);
-        
-        inline IReaderDelegate * getDelegate(){
-            return _delegate;
-        };
-        inline void setDelegate(IReaderDelegate * delegate){
-            _delegate = delegate;
-        };
-        virtual ~ Reader();
+	 ********************************/
+	Reader(std::string & rmlContent,IReaderDelegate * delegate);
+	virtual ~ Reader();
 
-        void read();
-    };
+	void read();
+
+	inline IReaderDelegate* getDelegate() {
+		return _delegate;
+	}
+
+	inline void setDelegate(IReaderDelegate* delegate) {
+		_delegate = delegate;
+	}
+};
 }
 
 #endif
