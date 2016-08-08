@@ -15,22 +15,23 @@
 #include "RMLIReaderDelegate.h"
 
 
-namespace rml{
+namespace rml {
 
-class Context:public rml::Object,public rml::IReaderDelegate{
+    class Context : public rml::Object, public rml::IReaderDelegate {
 
-private:
-	Context * _parent;
+    private:
+        Context *_parent;
 
-public:
-	Context(Context * parent);
-	virtual ~Context();
+    public:
+        Context(Context *parent);
 
-public:
-	inline Context * getParentContext(){
-		return _parent;
-	};
-};
+        virtual ~Context();
+
+    public:
+        inline Context *getParentContext() {
+            return _parent;
+        };
+    };
 
 } /* namespace rml */
 

@@ -7,14 +7,10 @@
 
 #include "RMLFuncContext.h"
 
-#include <stddef.h>
 #include <fstream>
 #include <sstream>
 
 #include "RMLCall.h"
-#include "RMLObject.h"
-#include "RMLReader.h"
-#include "RMLValue.h"
 #include "RMLKeyWords.h"
 
 namespace rml {

@@ -8,32 +8,38 @@
 #ifndef RMLARGCONTEXT_H_
 #define RMLARGCONTEXT_H_
 
-#include "RMLContext.h"
 #include "RMLValue.h"
+#include "RMLContext.h"
 
 namespace rml {
 
-class ArgContext: public Context {
-public:
-	ArgContext(Context * parent);
-	virtual ~ArgContext();
+    class ArgContext : public Context {
+    public:
+        ArgContext(Context *parent);
 
-public:
-	inline Value * getValue(){
-		return _value;
-	};
+        virtual ~ArgContext();
 
-public://delegate
-	virtual void documentStart(Reader * reader);
-	virtual void documentEnd(Reader * reader);
-	virtual void startElement(Reader * reader,std::string & elementName,std::map<std::string, std::string> & attrs);
-	virtual void endElement(Reader * reader,std::string & elementName);
-	virtual void foundText(Reader * reader,std::string & text);
-	virtual void foundComment(Reader * reader,std::string & comment);
+    public:
+        inline Value *getValue() {
+            return _value;
+        };
 
-private:
-	Value * _value;
-};
+    public://delegate
+        virtual void documentStart(Reader *reader);
+
+        virtual void documentEnd(Reader *reader);
+
+        virtual void startElement(Reader *reader, std::string &elementName, std::map<std::string, std::string> &attrs);
+
+        virtual void endElement(Reader *reader, std::string &elementName);
+
+        virtual void foundText(Reader *reader, std::string &text);
+
+        virtual void foundComment(Reader *reader, std::string &comment);
+
+    private:
+        Value *_value;
+    };
 
 } /* namespace rml */
 
