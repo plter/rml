@@ -49,5 +49,5 @@ Func* Library::getFunc(std::string & name) {
 	return _funcsMap[name];
 }
 
-} /* namespace rml */
+} /* namespace src */
 

@@ -32,6 +32,6 @@ public://override delegate
 	virtual void foundComment(Reader * reader,std::string & comment);
 };
 
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* RMLFUNCCONTEXT_H_ */

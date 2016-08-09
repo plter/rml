@@ -26,4 +26,4 @@ void PrintFunc::exec(rml::Call* call) {
 }
 
 } /* namespace funcs */
-} /* namespace rml */
+} /* namespace src */

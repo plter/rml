@@ -3,8 +3,8 @@ project(rml)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-include_directories(../rml)
+include_directories(../../src)
 link_libraries(rml)
 
-set(SOURCE_FILES T001ReadRml.cpp)
-add_executable(ReadRml ${SOURCE_FILES})
+set(SOURCE_FILES T002Print.cpp)
+add_executable(Print ${SOURCE_FILES})

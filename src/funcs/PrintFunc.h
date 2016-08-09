@@ -23,6 +23,6 @@ public:
 };
 
 } /* namespace funcs */
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* FUNCS_PRINTFUNC_H_ */

@@ -44,4 +44,4 @@ namespace rml {
     void ArgContext::foundComment(Reader *reader, std::string &comment) {
     }
 
-} /* namespace rml */
+} /* namespace src */

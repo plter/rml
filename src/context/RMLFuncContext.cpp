@@ -70,4 +70,4 @@ namespace rml {
     void FuncContext::foundComment(Reader *reader, std::string &comment) {
     }
 
-} /* namespace rml */
+} /* namespace src */

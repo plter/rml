@@ -33,6 +33,6 @@ namespace rml {
         };
     };
 
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* RMLCONTEXT_H_ */

@@ -14,7 +14,7 @@ Value::~Value() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace rml */
+} /* namespace src */
 
 rml::Value::Value(std::string v) {
 	_type = TYPE_STRING;

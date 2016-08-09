@@ -29,6 +29,6 @@ private:
 	std::string _name;
 };
 
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* RMLFUNC_H_ */

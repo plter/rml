@@ -36,7 +36,7 @@ namespace rml {
         return _args.at(index);
     }
 
-} /* namespace rml */
+} /* namespace src */
 
 void rml::Call::pushArg(rml::Value *arg) {
     _args.push(arg);

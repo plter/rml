@@ -61,6 +61,6 @@ private:
 
 };
 
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* RMLVALUE_H_ */

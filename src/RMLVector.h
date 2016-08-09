@@ -47,6 +47,6 @@ private:
 	std::vector<T> _vect;
 };
 
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* RMLVECTOR_H_ */

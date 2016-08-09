@@ -41,6 +41,6 @@ namespace rml {
         Value *_value;
     };
 
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* RMLARGCONTEXT_H_ */

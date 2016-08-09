@@ -37,6 +37,6 @@ private:
 	std::map<std::string,Func*> _funcsMap;
 };
 
-} /* namespace rml */
+} /* namespace src */
 
 #endif /* RMLLIBRARY_H_ */

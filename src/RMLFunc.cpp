@@ -18,4 +18,4 @@ Func::~Func() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace rml */
+} /* namespace src */
