@@ -24,7 +24,12 @@ namespace rml {
     }
 
     void Call::exec() {
-        rml::Library::getInstance()->getFunc(_name)->exec(this);
+        auto func = rml::Library::getInstance()->getFunc(_name);
+        if (func) {
+            func->exec(this);
+        } else {
+            std::cout << "Can not find function named " << _name << std::endl;
+        }
     }
 
     rml::Value *Call::at(uint32_t index) {
