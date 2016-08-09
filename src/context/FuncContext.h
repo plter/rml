@@ -11,7 +11,7 @@
 #include <iostream>
 #include <map>
 
-#include "RMLContext.h"
+#include "Context.h"
 
 namespace rml {
 

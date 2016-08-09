@@ -17,44 +17,49 @@
 
 namespace rml {
 
-class IReaderDelegate;
+    class IReaderDelegate;
 
-class Reader:public Object{
+    class Reader : public Object {
 
-private:
-	std::string _rmlContent;
-	IReaderDelegate * _delegate;
-	int32_t _inCount;
-	uint32_t _currentIndex;
-	int32_t _leftAngleBracketIndex;
-	int32_t _rightAngleBracketIndex;
-	bool _docEnded;
+    private:
+        std::string _rmlContent;
+        IReaderDelegate *_delegate;
+        int32_t _inCount;
+        uint32_t _currentIndex;
+        int32_t _leftAngleBracketIndex;
+        int32_t _rightAngleBracketIndex;
+        bool _docEnded;
 
-private:
-	void startElement(std::string & elementName,std::map<std::string, std::string> & attrs);
-	void endElement(std::string & elementName);
-	void parseTagContentString(std::string tagContentString);
-	void tryToFindContentText();
+    private:
+        void startElement(std::string &elementName, std::map<std::string, std::string> &attrs);
 
-public:
-	/********************************
-         Construct a RMLReader object
-         @param rmlContent  The rml file content
-         @param delegate    The delegate to parse rml file
-	 ********************************/
-	Reader(std::string & rmlContent,IReaderDelegate * delegate);
-	virtual ~ Reader();
+        void endElement(std::string &elementName);
 
-	void read();
+        void parseTagContentString(std::string tagContentString);
 
-	inline IReaderDelegate* getDelegate() {
-		return _delegate;
-	}
+        void tryToFindContentText();
 
-	inline void setDelegate(IReaderDelegate* delegate) {
-		_delegate = delegate;
-	}
-};
+    public:
+        /**
+         * Construct a RMLReader object
+         * @param rmlContent The rml file content
+         * @param delegate The delegate to parse rml file
+         * @return
+         */
+        Reader(std::string &rmlContent, IReaderDelegate *delegate);
+
+        virtual ~ Reader();
+
+        void read();
+
+        inline IReaderDelegate *getDelegate() {
+            return _delegate;
+        }
+
+        inline void setDelegate(IReaderDelegate *delegate) {
+            _delegate = delegate;
+        }
+    };
 }
 
 #endif

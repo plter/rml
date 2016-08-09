@@ -2,7 +2,7 @@
 // Created by plter on 8/8/16.
 //
 
-#include "RMLContext.h"
+#include "Context.h"
 
 namespace rml {
 

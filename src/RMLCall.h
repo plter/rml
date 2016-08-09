@@ -12,7 +12,7 @@
 #include <string>
 #include "RMLVector.h"
 #include "RMLValue.h"
-#include "context/RMLArgContext.h"
+#include "context/ArgContext.h"
 
 namespace rml {
 

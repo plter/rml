@@ -9,9 +9,11 @@ set(SOURCE_FILES
         RMLReader.cpp
         RMLCall.cpp
         RMLFunc.cpp
-        context/RMLContext.cpp
-        context/RMLArgContext.cpp
-        context/RMLFuncContext.cpp
+        context/Context.cpp
+        context/ArgContext.cpp
+        context/FuncContext.cpp
+        context/NSContext.cpp
+        lang/NS.cpp
         RMLLibrary.cpp
         RMLValue.cpp
         funcs/PrintFunc.cpp)
