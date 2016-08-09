@@ -2,3 +2,7 @@ RemoteSystemsTempFiles
 .metadata
 Debug
 .idea
+*.cmake
+CMakeFiles
+Makefile
+CMakeCache.txt
