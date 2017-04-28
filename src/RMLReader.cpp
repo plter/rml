@@ -147,7 +147,8 @@ void rml::Reader::parseTagContentString(std::string tagContentString) {
 }
 
 void rml::Reader::tryToFindContentText() {
-    if (_leftAngleBracketIndex && _rightAngleBracketIndex && _leftAngleBracketIndex > _rightAngleBracketIndex + 1) {
+    if ((_leftAngleBracketIndex != 0) && (_rightAngleBracketIndex != 0) &&
+        _leftAngleBracketIndex > _rightAngleBracketIndex + 1) {
         std::string contentText = _rmlContent.substr(_rightAngleBracketIndex + 1,
                                                      _leftAngleBracketIndex - _rightAngleBracketIndex - 1);
         _delegate->foundText(this, contentText);

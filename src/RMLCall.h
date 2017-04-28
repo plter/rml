@@ -35,17 +35,17 @@ namespace rml {
         }
 
     public://override delegate
-        virtual void documentStart(Reader *reader);
+        void documentStart(Reader *reader) override;
 
-        virtual void documentEnd(Reader *reader);
+        void documentEnd(Reader *reader) override;
 
-        virtual void startElement(Reader *reader, std::string &elementName, std::map<std::string, std::string> &attrs);
+        void startElement(Reader *reader, std::string &elementName, std::map<std::string, std::string> &attrs) override;
 
-        virtual void endElement(Reader *reader, std::string &elementName);
+        void endElement(Reader *reader, std::string &elementName) override;
 
-        virtual void foundText(Reader *reader, std::string &text);
+        void foundText(Reader *reader, std::string &text) override;
 
-        virtual void foundComment(Reader *reader, std::string &comment);
+        void foundComment(Reader *reader, std::string &comment) override;
 
     private:
         std::string _name;

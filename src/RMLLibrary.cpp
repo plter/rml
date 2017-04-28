@@ -11,43 +11,42 @@
 namespace rml {
 
 
+    Library::Library() {
+        // TODO Auto-generated constructor stub
+        addSystemFuncs();
+    }
 
-Library::Library() {
-	// TODO Auto-generated constructor stub
-	addSystemFuncs();
-}
+    Library::~Library() {
+        // TODO Auto-generated destructor stub
+    }
 
-Library::~Library() {
-	// TODO Auto-generated destructor stub
-}
+    void Library::addFunc(rml::Func *func) {
+        func->retain();
+        _funcsMap[func->getName()] = func;
+    }
 
-void Library::addFunc(rml::Func* func) {
-	func->retain();
-	_funcsMap[func->getName()] = func;
-}
+    void Library::removeFunc(rml::Func *func) {
+        _funcsMap.erase(func->getName());
+        func->release();
+    }
 
-void Library::removeFunc(rml::Func* func) {
-	_funcsMap.erase(func->getName());
-	func->release();
-}
+    Library *Library::getInstance() {
+        static Library *__ins = nullptr;
+        if (__ins == nullptr) {
+            __ins = new Library();
+        }
+        return __ins;
+    }
 
-Library* Library::getInstance() {
-	static Library * __ins = NULL;
-	if (!__ins) {
-		__ins = new Library();
-	}
-	return __ins;
-}
+    void Library::addSystemFuncs() {
+        //add print func
+        auto f = new rml::funcs::PrintFunc();
+        addFunc(f);
+    }
 
-void Library::addSystemFuncs() {
-	//add print func
-	rml::funcs::PrintFunc * f = new rml::funcs::PrintFunc();
-	addFunc(f);
-}
-
-Func* Library::getFunc(std::string & name) {
-	return _funcsMap[name];
-}
+    Func *Library::getFunc(std::string &name) {
+        return _funcsMap[name];
+    }
 
 } /* namespace src */
 

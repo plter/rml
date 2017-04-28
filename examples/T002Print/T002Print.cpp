@@ -13,7 +13,7 @@ using namespace std;
 
 int main() {
 
-    rml::FuncContext c(NULL);
+    rml::FuncContext c(nullptr);
     c.runFile("app.xml");
     return 0;
 }
