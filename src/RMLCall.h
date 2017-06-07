@@ -8,7 +8,7 @@
 #pragma once
 
 #include "RMLObject.h"
-#include "RMLIReaderDelegate.h"
+#include "IReaderDelegate.h"
 #include <string>
 #include "RMLVector.h"
 #include "RMLValue.h"

@@ -6,12 +6,11 @@
 //  Copyright (c) 2014 plter. All rights reserved.
 //
 
-#ifndef rml_RMLReader_h
-#define rml_RMLReader_h
+#pragma once
 
 #include <iostream>
 #include <string>
-#include "RMLIReaderDelegate.h"
+#include "IReaderDelegate.h"
 #include <map>
 #include "RMLObject.h"
 
@@ -19,16 +18,16 @@ namespace rml {
 
     class IReaderDelegate;
 
-    class Reader : public Object {
+    class Reader {
 
     private:
-        std::string _rmlContent;
-        IReaderDelegate *_delegate;
-        int32_t _inCount;
-        uint32_t _currentIndex;
-        int32_t _leftAngleBracketIndex;
-        int32_t _rightAngleBracketIndex;
-        bool _docEnded;
+        std::string rmlContent;
+        IReaderDelegate &delegate;
+        uint32_t depth;
+        uint32_t currentIndex;
+        uint32_t leftAngleBracketIndex;
+        uint32_t rightAngleBracketIndex;
+        bool docEnded;
 
     private:
         void startElement(std::string &elementName, std::map<std::string, std::string> &attrs);
@@ -46,20 +45,12 @@ namespace rml {
          * @param delegate The delegate to parse rml file
          * @return
          */
-        Reader(std::string &rmlContent, IReaderDelegate *delegate);
-
-        virtual ~ Reader();
+        Reader(std::string &rmlContent, IReaderDelegate &delegate);
 
         void read();
 
-        inline IReaderDelegate *getDelegate() {
-            return _delegate;
-        }
+        IReaderDelegate &getDelegate() const;
 
-        inline void setDelegate(IReaderDelegate *delegate) {
-            _delegate = delegate;
-        }
+        void setDelegate(IReaderDelegate &delegate);
     };
 }
-
-#endif

@@ -12,9 +12,9 @@
 #include <string>
 
 #include "RMLCall.h"
-#include "RMLReader.h"
+#include "Reader.h"
 #include "RMLObject.h"
-#include "RMLIReaderDelegate.h"
+#include "IReaderDelegate.h"
 
 namespace rml {
     class Translator:public Object,IReaderDelegate{

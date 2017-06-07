@@ -5,32 +5,19 @@
  *      Author: plter
  */
 
-#ifndef RMLCONTEXT_H_
-#define RMLCONTEXT_H_
+#pragma once
 
 #include <string>
 
 #include "RMLObject.h"
-#include "RMLReader.h"
-#include "RMLIReaderDelegate.h"
+#include "Reader.h"
+#include "IReaderDelegate.h"
 
 
 namespace rml {
 
-    class Context : public rml::Object, public rml::IReaderDelegate {
+    class Context {
 
-    private:
-        Context *_parent;
-
-    public:
-        Context(Context *parent);
-
-        virtual ~Context();
-
-    public:
-        inline Context *getParentContext() {
-            return _parent;
-        };
     };
 
 } /* namespace src */

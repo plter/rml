@@ -9,45 +9,41 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <RMLReader.h>
+#include <Reader.h>
 
 
-class MyDelegate : public rml::Object, public rml::IReaderDelegate {
+class MyDelegate : public rml::IReaderDelegate {
 
 public:
-    virtual void documentStart(rml::Reader *reader) {
-        printf("Start Doc\n");
+    void documentStart(rml::Reader &reader) override {
+        std::cout << "Start Doc" << std::endl;
     };
 
-    virtual void documentEnd(rml::Reader *reader) {
-        printf("End Doc\n");
+    void documentEnd(rml::Reader &reader) override {
+        std::cout << "End Doc" << std::endl;
     };
 
-    virtual void
-    startElement(rml::Reader *reader, std::string &elementName, std::map<std::string, std::string> &attrs) {
+    void
+    startElement(rml::Reader &reader, std::string &elementName, std::map<std::string, std::string> &attrs) override {
 
         std::cout << "Start " << elementName << ">>>>>\n";
 
-        if (elementName.compare("person") == 0) {
+        if (elementName == "person") {
             std::cout << "Name:" << attrs["name"] << ",Age:" << attrs["age"] << "\n";
         }
     };
 
-    virtual void endElement(rml::Reader *reader, std::string &elementName) {
+    void endElement(rml::Reader &reader, std::string &elementName) override {
         std::cout << "End " << elementName << "<<<<<\n";
     };
 
-    virtual void foundText(rml::Reader *reader, std::string &text) {
+    void foundText(rml::Reader &reader, std::string &text) override {
         std::cout << "Text Content : " << text << "\n";
     };
 
-    virtual void foundComment(rml::Reader *reader, std::string &comment) {
+    void foundComment(rml::Reader &reader, std::string &comment) override {
         std::cout << "Comment : " << comment << "\n";
     };
-
-    MyDelegate() {};
-
-    virtual ~MyDelegate() {};
 };
 
 
@@ -60,11 +56,8 @@ int main(int argc, const char *argv[]) {
 
     std::string rmlData = sb.str();
 
-
-    MyDelegate *delegate = new MyDelegate();
+    MyDelegate delegate;
     rml::Reader r(rmlData, delegate);
-    delegate->release();
-
     r.read();
 
     return 0;

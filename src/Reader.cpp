@@ -5,51 +5,44 @@
  *      Author: plter
  */
 
-#include "RMLReader.h"
+#include "Reader.h"
 
 
-rml::Reader::Reader(std::string &rmlContent, IReaderDelegate *delegate) {
-
-    _rmlContent = rmlContent;
-    _delegate = delegate;
-    _inCount = 0;
-    _currentIndex = 0;
-    _leftAngleBracketIndex = 0;
-    _rightAngleBracketIndex = 0;
-    _docEnded = false;
-
-    dynamic_cast<rml::Object *>(_delegate)->retain();
-}
-
-rml::Reader::~Reader() {
-    dynamic_cast<rml::Object *>(_delegate)->release();
+rml::Reader::Reader(std::string &rmlContent, IReaderDelegate &delegate) :
+        delegate(delegate),
+        rmlContent(rmlContent),
+        depth(0),
+        currentIndex(0),
+        leftAngleBracketIndex(0),
+        rightAngleBracketIndex(0),
+        docEnded(false) {
 }
 
 
 void rml::Reader::read() {
-    _inCount = 0;
-    long size = _rmlContent.size();
+    depth = 0;
+    long size = rmlContent.size();
 
-    _delegate->documentStart(this);
+    getDelegate().documentStart(*this);
     std::string currentStr;
     char currentC;
-    _leftAngleBracketIndex = 0;
-    _rightAngleBracketIndex = 0;
-    _docEnded = false;
+    leftAngleBracketIndex = 0;
+    rightAngleBracketIndex = 0;
+    docEnded = false;
 
-    for (_currentIndex = 0; _currentIndex < size && !_docEnded; ++_currentIndex) {
+    for (currentIndex = 0; currentIndex < size && !docEnded; ++currentIndex) {
 
-        if (_rmlContent[_currentIndex] == '<') {
-            _leftAngleBracketIndex = _currentIndex;
+        if (rmlContent[currentIndex] == '<') {
+            leftAngleBracketIndex = currentIndex;
             tryToFindContentText();
 
             currentStr = "";
-            int j = 0;
-            for (j = _currentIndex + 1; j < size && (currentC = _rmlContent[j]) != '>'; ++j) {
+            uint32_t j = 0;
+            for (j = currentIndex + 1; j < size && (currentC = rmlContent[j]) != '>'; ++j) {
                 currentStr += currentC;
             }
-            _rightAngleBracketIndex = j;
-            _currentIndex = j;
+            rightAngleBracketIndex = j;
+            currentIndex = j;
 
             parseTagContentString(currentStr);
         }
@@ -58,17 +51,17 @@ void rml::Reader::read() {
 
 void rml::Reader::startElement(std::string &elementName,
                                std::map<std::string, std::string> &attrs) {
-    _inCount++;
-    _delegate->startElement(this, elementName, attrs);
+    depth++;
+    getDelegate().startElement(*this, elementName, attrs);
 }
 
 void rml::Reader::endElement(std::string &elementName) {
-    _inCount--;
+    depth--;
 
-    _delegate->endElement(this, elementName);
-    if (_inCount <= 0) {
-        _delegate->documentEnd(this);
-        _docEnded = true;
+    getDelegate().endElement(*this, elementName);
+    if (depth <= 0) {
+        getDelegate().documentEnd(*this);
+        docEnded = true;
     }
 
 }
@@ -77,7 +70,7 @@ void rml::Reader::parseTagContentString(std::string tagContentString) {
 
     char currentC;
 
-    long currentStrSize = tagContentString.size();
+    unsigned long currentStrSize = tagContentString.size();
     currentC = tagContentString[0];
 
     if (currentC == '/') { //end element
@@ -85,7 +78,7 @@ void rml::Reader::parseTagContentString(std::string tagContentString) {
         endElement(endElementName);
     } else if (currentC == '!') { //the currentStr is a comment
         std::string comment = tagContentString.substr(1, currentStrSize - 1);
-        _delegate->foundComment(this, comment);
+        getDelegate().foundComment(*this, comment);
     } else { //start element
 
         std::map<std::string, std::string> attrs;
@@ -108,8 +101,7 @@ void rml::Reader::parseTagContentString(std::string tagContentString) {
                     currentC = tagContentString[a];
 
                     if (currentC != ' ') {
-                        for (int b = a; b > 0 && (currentC =
-                                                          tagContentString[b]) != ' '; --b) {
+                        for (int b = a; b > 0 && (currentC = tagContentString[b]) != ' '; --b) {
                             key += currentC;
                         }
 
@@ -147,10 +139,18 @@ void rml::Reader::parseTagContentString(std::string tagContentString) {
 }
 
 void rml::Reader::tryToFindContentText() {
-    if ((_leftAngleBracketIndex != 0) && (_rightAngleBracketIndex != 0) &&
-        _leftAngleBracketIndex > _rightAngleBracketIndex + 1) {
-        std::string contentText = _rmlContent.substr(_rightAngleBracketIndex + 1,
-                                                     _leftAngleBracketIndex - _rightAngleBracketIndex - 1);
-        _delegate->foundText(this, contentText);
+    if ((leftAngleBracketIndex != 0) && (rightAngleBracketIndex != 0) &&
+        leftAngleBracketIndex > rightAngleBracketIndex + 1) {
+        std::string contentText = rmlContent.substr(rightAngleBracketIndex + 1,
+                                                    leftAngleBracketIndex - rightAngleBracketIndex - 1);
+        getDelegate().foundText(*this, contentText);
     }
+}
+
+rml::IReaderDelegate &rml::Reader::getDelegate() const {
+    return delegate;
+}
+
+void rml::Reader::setDelegate(rml::IReaderDelegate &delegate) {
+    Reader::delegate = delegate;
 }
