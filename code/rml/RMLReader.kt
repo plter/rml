@@ -8,111 +8,119 @@ abstract class RMLReader(source: String?) {
         if (_source != null) {
             var index = 0
             val sourceLength = _source.length
-            while (index < sourceLength) {
+            var lineNum = 1
+            topLoop@ while (index < sourceLength) {
                 var c = _source[index]
-                if (c == '<') {
-                    index += 1
+                when (c) {
+                    '<' -> {
+                        index += 1
 
-                    c = _source[index]
-                    when (c) {
-                        '/' -> {
-                            val endTagSB = StringBuilder()
-                            index += 1
-                            while (index < sourceLength) {
-                                c = _source[index]
-
-                                if (c != '>') {
-                                    endTagSB.append(c)
-                                } else {
-                                    break
-                                }
-                                index++
-                            }
-                            elementEnd(endTagSB.toString())
-                        }
-                        '!' -> {
-                            if (_source[index + 1] == '-' && _source[index + 2] == '-') {
-                                index += 3
-                                val contentSB = StringBuilder()
+                        c = _source[index]
+                        when (c) {
+                            '/' -> {
+                                val endTagSB = StringBuilder()
+                                index += 1
                                 while (index < sourceLength) {
                                     c = _source[index]
-                                    if (c == '-' && _source[index + 1] == '-' && _source[index + 2] == '>') {
-                                        break
+
+                                    if (c != '>') {
+                                        endTagSB.append(c)
                                     } else {
-                                        contentSB.append(c)
+                                        break
                                     }
                                     index++
                                 }
-                                commentContent(contentSB.toString())
+                                elementEnd(endTagSB.toString())
                             }
-                        }
-                        else -> {
-                            var sb = StringBuilder()
-                            val attributes = HashMap<String, String>()
-                            var tag: String? = null
-                            loop@ while (index < sourceLength) {
-                                c = _source[index]
-
-                                when (c) {
-                                    ' ' -> {
-                                        if (tag == null) {
-                                            tag = sb.toString()
-                                        }
-                                        sb = StringBuilder()
-                                    }
-                                    '=' -> {
-                                        val name = sb.toString()
-                                        val valueSB = StringBuilder()
-                                        index += 1
-                                        var foundStart = false
-                                        while (index < sourceLength) {
-                                            c = _source[index]
-                                            if (c != '"') {
-                                                if (foundStart) {
-                                                    valueSB.append(c)
-                                                }
-                                            } else {
-                                                if (!foundStart) {
-                                                    foundStart = true
-                                                } else {
-                                                    val value = valueSB.toString()
-                                                    attributes[name] = value
-                                                    break
-                                                }
-                                            }
-
-                                            index++
-                                        }
-                                    }
-                                    '/' -> {
-                                        if (tag == null) {
-                                            tag = sb.toString()
-                                        }
-                                        if (_source[index + 1] == '>') {
-                                            elementStart(tag, attributes)
-                                            elementEnd(tag)
-                                            break@loop
+                            '!' -> {
+                                if (_source[index + 1] == '-' && _source[index + 2] == '-') {
+                                    index += 3
+                                    val contentSB = StringBuilder()
+                                    while (index < sourceLength) {
+                                        c = _source[index]
+                                        if (c == '-' && _source[index + 1] == '-' && _source[index + 2] == '>') {
+                                            break
                                         } else {
-                                            error("Syntax error")
+                                            contentSB.append(c)
                                         }
+                                        index++
                                     }
-                                    '>' -> {
-                                        if (tag == null) {
-                                            tag = sb.toString()
-                                        }
-                                        elementStart(tag, attributes)
-                                        break@loop
-                                    }
-                                    else -> {
-                                        sb.append(c)
-                                    }
+                                    commentContent(contentSB.toString())
                                 }
+                            }
+                            ' ', '\r', '\n' -> {
+                                println("Syntax error at line $lineNum")
+                                break@topLoop
+                            }
+                            else -> {
+                                var sb = StringBuilder()
+                                val attributes = HashMap<String, String>()
+                                var tag: String? = null
+                                findAttributesLoop@ while (index < sourceLength) {
+                                    c = _source[index]
 
-                                index++
+                                    when (c) {
+                                        ' ' -> {
+                                            if (tag == null) {
+                                                tag = sb.toString()
+                                            }
+                                            sb = StringBuilder()
+                                        }
+                                        '=' -> {
+                                            val name = sb.toString()
+                                            val valueSB = StringBuilder()
+                                            index += 1
+                                            var foundStart = false
+                                            while (index < sourceLength) {
+                                                c = _source[index]
+                                                if (c != '"') {
+                                                    if (foundStart) {
+                                                        valueSB.append(c)
+                                                    }
+                                                } else {
+                                                    if (!foundStart) {
+                                                        foundStart = true
+                                                    } else {
+                                                        val value = valueSB.toString()
+                                                        attributes[name] = value
+                                                        break
+                                                    }
+                                                }
+
+                                                index++
+                                            }
+                                        }
+                                        '/' -> {
+                                            if (tag == null) {
+                                                tag = sb.toString()
+                                            }
+                                            if (_source[index + 1] == '>') {
+                                                elementStart(tag, attributes)
+                                                elementEnd(tag)
+                                                break@findAttributesLoop
+                                            } else {
+                                                println("Syntax error at line $lineNum")
+                                                break@topLoop
+                                            }
+                                        }
+                                        '>' -> {
+                                            if (tag == null) {
+                                                tag = sb.toString()
+                                            }
+                                            elementStart(tag, attributes)
+                                            break@findAttributesLoop
+                                        }
+                                        else -> {
+                                            sb.append(c)
+                                        }
+                                    }
+
+                                    index++
+                                }
                             }
                         }
                     }
-
+                    '\n' -> ++lineNum
                 }
 
                 index++
@@ -122,9 +130,7 @@ abstract class RMLReader(source: String?) {
 
     protected abstract fun elementStart(tagName: String, attributes: Map<String, String>)
     protected abstract fun elementEnd(tagName: String)
-    protected abstract fun commentStart()
     protected abstract fun commentContent(content: String)
-    protected abstract fun commentEnd()
 
 
 }

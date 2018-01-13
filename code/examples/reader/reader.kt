@@ -10,18 +10,9 @@ class Reader(source: String?) : RMLReader(source) {
         println("elementEnd $tagName")
     }
 
-    override fun commentStart() {
-        println("commentStart")
-    }
-
     override fun commentContent(content: String) {
         println("commentContent $content")
     }
-
-    override fun commentEnd() {
-        println("commentEnd")
-    }
-
 }
 
 fun main(args: Array<String>) {
