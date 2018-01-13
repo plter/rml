@@ -8,3 +8,11 @@ konanc_executable(
         NAME HelloWorld
         SOURCES hello.kt
 )
+
+konanc_executable(
+        NAME reader
+        SOURCES
+        tools/readFile.kt
+        rml/RMLReader.kt
+        examples/reader/reader.kt
+)
