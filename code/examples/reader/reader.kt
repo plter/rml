@@ -1,7 +1,7 @@
-import rml.RMLReader
+import rml.XMLReader
 
 
-class Reader(source: String?) : RMLReader(source) {
+class Reader(source: String?) : XMLReader(source) {
     override fun elementStart(tagName: String, attributes: Map<String, String>) {
         println("elementStart $tagName,attrs $attributes")
     }
