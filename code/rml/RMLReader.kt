@@ -18,7 +18,7 @@ class RMLReader(source: String?) : XMLReader(source) {
                 currentCall?.addArg(arg)
             }
             "var" -> {
-                val variable = Var(attributes["name"], attributes["value"], _currentScope)
+                val variable = Var(attributes["name"], attributes["value"], attributes["ref"], _currentScope)
                 _currentScope?.addVar(variable)
             }
             "func" -> {

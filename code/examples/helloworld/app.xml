@@ -1,7 +1,5 @@
 <func name="main">
-    <var name="num" value="100"/>
     <call func="print">
         <arg value="Hello World"/>
-        <arg ref="num"/>
     </call>
 </func>

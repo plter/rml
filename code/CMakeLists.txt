@@ -22,6 +22,24 @@ konanc_executable(
 )
 
 konanc_executable(
+        NAME ref
+        SOURCES
+        tools/readFile.kt
+        rml/XMLReader.kt
+        rml/Scope.kt
+        rml/Var.kt
+        rml/Arg.kt
+        rml/funcs/Print.kt
+        rml/CommonLib.kt
+        rml/Call.kt
+        rml/Func.kt
+        rml/Application.kt
+        rml/RMLReader.kt
+        examples/ref/ref.kt
+)
+
+
+konanc_executable(
         NAME reader
         SOURCES
         tools/readFile.kt
