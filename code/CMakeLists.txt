@@ -10,6 +10,7 @@ konanc_executable(
         tools/readFile.kt
         rml/XMLReader.kt
         rml/Scope.kt
+        rml/Command.kt
         rml/Var.kt
         rml/Arg.kt
         rml/funcs/Print.kt
@@ -27,6 +28,7 @@ konanc_executable(
         tools/readFile.kt
         rml/XMLReader.kt
         rml/Scope.kt
+        rml/Command.kt
         rml/Var.kt
         rml/Arg.kt
         rml/funcs/Print.kt

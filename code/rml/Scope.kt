@@ -8,11 +8,11 @@ open class Scope(parent: Scope?) {
     private val _funcs = HashMap<String, Func>()
     val funcs: HashMap<String, Func> get() = _funcs
 
-    private val _vars = HashMap<String, Var>()
-    val vars: HashMap<String, Var> get() = _vars
+    private var _varsStatus = HashMap<String, Var>()
+    val varsStatus: HashMap<String, Var> get() = _varsStatus
 
-    private var _calls = ArrayList<Call>()
-    val calls: List<Call> get() = _calls
+    private var _commands = ArrayList<Command>()
+    val commands: List<Command> get() = _commands
 
 
     fun addFunc(func: Func) {
@@ -20,7 +20,11 @@ open class Scope(parent: Scope?) {
     }
 
     fun addVar(variable: Var) {
-        _vars[variable.name!!] = variable
+        _commands.add(variable)
+    }
+
+    fun addCall(call: Call) {
+        _commands.add(call)
     }
 
     fun getFunc(fullyQualifiedName: String): Func? {
@@ -36,8 +40,9 @@ open class Scope(parent: Scope?) {
         }
     }
 
+
     fun getVar(name: String): Var? {
-        val v = vars[name]
+        val v = varsStatus[name]
         if (v != null) {
             return v
         } else {
@@ -57,7 +62,14 @@ open class Scope(parent: Scope?) {
         }
     }
 
-    fun addCall(call: Call) {
-        _calls.add(call)
+    open fun execute(args: List<Arg>) {
+        _varsStatus = HashMap()
+
+        for (c in commands) {
+            val result = c.execute()
+            if (c is Var) {
+                _varsStatus[result?.name!!] = result
+            }
+        }
     }
 }

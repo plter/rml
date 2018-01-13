@@ -1,6 +1,6 @@
 package rml
 
-class Call(funcName: String, parent: Scope?) : Scope(parent) {
+class Call(funcName: String, parent: Scope?) : Command(parent) {
     private val _funcName: String = funcName
     val funcName: String get() = _funcName
 
@@ -11,12 +11,13 @@ class Call(funcName: String, parent: Scope?) : Scope(parent) {
         _args.add(arg)
     }
 
-    fun execute() {
+    override fun execute(): Var? {
         val f = getFunc(funcName)
         if (f != null) {
             f.execute(args)
         } else {
             println("Function $funcName not found")
         }
+        return null
     }
 }

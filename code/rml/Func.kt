@@ -4,7 +4,6 @@ open class Func(name: String?, ns: String?, parent: Scope?) : Scope(parent) {
 
     private var _name: String? = name
     private var _ns: String? = ns
-    private val _commands = HashMap<String, Call>()
 
     val ns: String? get() = _ns
     val name: String? get() = _name
@@ -23,11 +22,4 @@ open class Func(name: String?, ns: String?, parent: Scope?) : Scope(parent) {
             }
             return _fullyQualifiedName
         }
-
-
-    open fun execute(args: List<Arg>) {
-        for (c in calls) {
-            c.execute()
-        }
-    }
 }

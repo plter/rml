@@ -1,20 +1,25 @@
 package rml
 
-class Var(name: String?, value: String?, refName: String?, parent: Scope?) : Scope(parent) {
+class Var(name: String?, value: String?, refName: String?, parent: Scope?) : Command(parent) {
 
     private var _name: String? = name
     private var _value: String? = value
     private var _refName: String? = refName
-
-    init {
-        if (_value == null && _refName != null) {
-            _value = getVar(_refName!!)?.value
-        }
-    }
 
     val name: String?
         get() = _name
 
     val value: String?
         get() = _value
+
+    /**
+     * 执行后生成新的变量用于记录当前的运行状态
+     */
+    override fun execute(): Var? {
+        var value: String? = _value
+        if (value == null && _refName != null) {
+            value = getVar(_refName!!)?.value
+        }
+        return Var(_name, value, _refName, parent)
+    }
 }
