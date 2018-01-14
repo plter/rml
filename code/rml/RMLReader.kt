@@ -4,7 +4,7 @@ import rml.cmds.Call
 import rml.cmds.Return
 import rml.cmds.Var
 
-class RMLReader(source: String?) : XMLReader(source) {
+class RMLReader(source: String?, fileId: String = "untitled") : XMLReader(source, fileId) {
 
     private val _app = Application(null)
 
@@ -14,17 +14,17 @@ class RMLReader(source: String?) : XMLReader(source) {
     override fun elementStart(tagName: String, attributes: Map<String, String>) {
         when (tagName) {
             "call" -> {
-                _currentCall = Call(attributes["func"]!!, attributes["to"], _currentScope)
+                _currentCall = Call(attributes["func"]!!, attributes["to"], _currentScope, currentLineNum, fileId)
                 _currentScope?.addCommand(_currentCall!!)
             }
             "arg" -> {
                 _currentCall?.addArg(Arg(attributes["value"], attributes["ref"], _currentScope))
             }
             "var" -> {
-                _currentScope?.addCommand(Var(attributes["name"], attributes["value"], attributes["ref"], _currentScope))
+                _currentScope?.addCommand(Var(attributes["name"], attributes["value"], attributes["ref"], _currentScope, currentLineNum, fileId))
             }
             "return" -> {
-                _currentScope?.addCommand(Return(attributes["ref"], _currentScope))
+                _currentScope?.addCommand(Return(attributes["ref"], _currentScope, currentLineNum, fileId))
             }
             "func" -> {
                 val func = Func(attributes["name"], attributes["ns"], _currentScope)

@@ -2,7 +2,7 @@ package rml.cmds
 
 import rml.Scope
 
-class Return(refName: String?, parent: Scope?) : Command(parent) {
+class Return(refName: String?, parent: Scope?, lineNum: Int, fileId: String) : Command(parent, lineNum, fileId) {
 
     private val _refName: String? = refName
 

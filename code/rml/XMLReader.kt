@@ -1,14 +1,20 @@
 package rml
 
-abstract class XMLReader(source: String?) {
+abstract class XMLReader(source: String?, fileId: String = "untitled") {
 
     private val _source = source
+    private var _lineNum = 0
+
+    private val _fileId = fileId
+    val fileId: String get() = _fileId
+
+    val currentLineNum: Int get() = _lineNum
 
     fun read() {
         if (_source != null) {
             var index = 0
             val sourceLength = _source.length
-            var lineNum = 1
+            _lineNum = 1
             topLoop@ while (index < sourceLength) {
                 var c = _source[index]
                 when (c) {
@@ -49,7 +55,7 @@ abstract class XMLReader(source: String?) {
                                 }
                             }
                             ' ', '\r', '\n' -> {
-                                println("Syntax error at line $lineNum")
+                                println("Syntax error at line $_lineNum")
                                 break@topLoop
                             }
                             else -> {
@@ -115,7 +121,7 @@ abstract class XMLReader(source: String?) {
                                                 elementEnd(tag)
                                                 break@findAttributesLoop
                                             } else {
-                                                println("Syntax error at line $lineNum")
+                                                println("Syntax error at line $_lineNum")
                                                 break@topLoop
                                             }
                                         }
@@ -136,7 +142,7 @@ abstract class XMLReader(source: String?) {
                             }
                         }
                     }
-                    '\n' -> ++lineNum
+                    '\n' -> ++_lineNum
                 }
 
                 index++

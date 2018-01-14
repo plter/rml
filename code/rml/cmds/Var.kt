@@ -2,7 +2,7 @@ package rml.cmds
 
 import rml.Scope
 
-class Var(name: String?, value: String?, refName: String?, parent: Scope?) : Command(parent) {
+class Var(name: String?, value: String?, refName: String?, parent: Scope?, lineNum: Int, fileId: String) : Command(parent, lineNum, fileId) {
 
     private var _name: String? = name
     private var _value: String? = value
@@ -25,6 +25,6 @@ class Var(name: String?, value: String?, refName: String?, parent: Scope?) : Com
         if (value == null && _refName != null) {
             value = getVar(_refName!!)?.value
         }
-        return Var(_name, value, _refName, parent)
+        return Var(_name, value, _refName, parent, lineNum, fileId)
     }
 }
