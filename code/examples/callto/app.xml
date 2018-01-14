@@ -1,0 +1,12 @@
+<func name="main">
+    <func name="add">
+        <var name="num" value="100"/>
+        <return ref="num"/>
+    </func>
+
+    <var name="result"/>
+    <call func="add" to="result"/>
+    <call func="print">
+        <arg ref="result"/>
+    </call>
+</func>

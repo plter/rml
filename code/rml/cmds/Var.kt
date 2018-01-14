@@ -1,4 +1,6 @@
-package rml
+package rml.cmds
+
+import rml.Scope
 
 class Var(name: String?, value: String?, refName: String?, parent: Scope?) : Command(parent) {
 
@@ -9,8 +11,11 @@ class Var(name: String?, value: String?, refName: String?, parent: Scope?) : Com
     val name: String?
         get() = _name
 
-    val value: String?
+    var value: String?
         get() = _value
+        set(v) {
+            _value = v
+        }
 
     /**
      * 执行后生成新的变量用于记录当前的运行状态

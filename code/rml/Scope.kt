@@ -1,5 +1,9 @@
 package rml
 
+import rml.cmds.Command
+import rml.cmds.Return
+import rml.cmds.Var
+
 open class Scope(parent: Scope?) {
 
     private val _parent: Scope? = parent
@@ -19,12 +23,8 @@ open class Scope(parent: Scope?) {
         _funcs[func.fullyQualifiedName!!] = func
     }
 
-    fun addVar(variable: Var) {
-        _commands.add(variable)
-    }
-
-    fun addCall(call: Call) {
-        _commands.add(call)
+    fun addCommand(cmd: Command) {
+        _commands.add(cmd)
     }
 
     fun getFunc(fullyQualifiedName: String): Func? {
@@ -62,14 +62,17 @@ open class Scope(parent: Scope?) {
         }
     }
 
-    open fun execute(args: List<Arg>) {
+    open fun execute(args: List<Arg>): Var? {
         _varsStatus = HashMap()
 
         for (c in commands) {
             val result = c.execute()
             if (c is Var) {
                 _varsStatus[result?.name!!] = result
+            } else if (c is Return) {
+                return result
             }
         }
+        return null
     }
 }

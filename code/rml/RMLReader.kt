@@ -1,25 +1,30 @@
 package rml
 
+import rml.cmds.Call
+import rml.cmds.Return
+import rml.cmds.Var
+
 class RMLReader(source: String?) : XMLReader(source) {
 
     private val _app = Application(null)
 
     private var _currentScope: Scope? = _app
-    private var currentCall: Call? = null
+    private var _currentCall: Call? = null
 
     override fun elementStart(tagName: String, attributes: Map<String, String>) {
         when (tagName) {
             "call" -> {
-                currentCall = Call(attributes["func"]!!, _currentScope)
-                _currentScope?.addCall(currentCall!!)
+                _currentCall = Call(attributes["func"]!!, attributes["to"], _currentScope)
+                _currentScope?.addCommand(_currentCall!!)
             }
             "arg" -> {
-                val arg = Arg(attributes["value"], attributes["ref"], _currentScope)
-                currentCall?.addArg(arg)
+                _currentCall?.addArg(Arg(attributes["value"], attributes["ref"], _currentScope))
             }
             "var" -> {
-                val variable = Var(attributes["name"], attributes["value"], attributes["ref"], _currentScope)
-                _currentScope?.addVar(variable)
+                _currentScope?.addCommand(Var(attributes["name"], attributes["value"], attributes["ref"], _currentScope))
+            }
+            "return" -> {
+                _currentScope?.addCommand(Return(attributes["ref"], _currentScope))
             }
             "func" -> {
                 val func = Func(attributes["name"], attributes["ns"], _currentScope)
@@ -33,6 +38,9 @@ class RMLReader(source: String?) : XMLReader(source) {
         when (tagName) {
             "func" -> {
                 _currentScope = _currentScope?.parent
+            }
+            "call" -> {
+                _currentCall = null
             }
         }
     }
