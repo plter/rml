@@ -1,0 +1,21 @@
+<func name="main">
+    <func name="CreateHello">
+        <call func="CreateMap" to="self"/>
+
+        <func name="sayHello">
+            <call func="print">
+                <arg value="Hello World\n"/>
+            </call>
+        </func>
+
+        <call func="set" target="self">
+            <arg value="sayHello"/>
+            <arg ref="sayHello"/>
+        </call>
+
+        <return ref="self"/>
+    </func>
+
+    <call func="CreateHello" to="result"/>
+    <call func="sayHello" target="result"/>
+</func>
