@@ -1,7 +1,6 @@
 package rml.funcs
 
 import rml.Arg
-import rml.Func
 import rml.Scope
 import rml.cmds.Var
 
@@ -13,6 +12,7 @@ class Print(parent: Scope?) : Func("print", null, parent) {
             sb.append(a.getValue())
             sb.append(",")
         }
+
         print(sb.substring(0, sb.length - 1))
         return null
     }

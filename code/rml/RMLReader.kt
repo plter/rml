@@ -3,6 +3,7 @@ package rml
 import rml.cmds.Call
 import rml.cmds.Return
 import rml.cmds.Var
+import rml.funcs.Func
 
 class RMLReader(source: String?, fileId: String = "untitled") : XMLReader(source, fileId) {
 
@@ -14,7 +15,7 @@ class RMLReader(source: String?, fileId: String = "untitled") : XMLReader(source
     override fun elementStart(tagName: String, attributes: Map<String, String>) {
         when (tagName) {
             "call" -> {
-                _currentCall = Call(attributes["func"]!!, attributes["to"], _currentScope, currentLineNum, fileId)
+                _currentCall = Call(attributes["func"]!!, attributes["to"], attributes["target"], _currentScope, currentLineNum, fileId)
                 _currentScope?.addCommand(_currentCall!!)
             }
             "arg" -> {

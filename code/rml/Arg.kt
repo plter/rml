@@ -6,7 +6,7 @@ class Arg(value: String?, refName: String?, parent: Scope?) : Scope(parent) {
 
     private val _refName = refName
 
-    fun getValue(): String? {
+    fun getValue(): Any? {
         if (_value != null) {
             return _value
         } else if (_refName != null) {

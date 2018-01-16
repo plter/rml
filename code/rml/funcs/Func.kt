@@ -1,4 +1,7 @@
-package rml
+package rml.funcs
+
+import rml.Scope
+import rml.cmds.Var
 
 open class Func(name: String?, ns: String?, parent: Scope?) : Scope(parent) {
 
@@ -21,5 +24,12 @@ open class Func(name: String?, ns: String?, parent: Scope?) : Scope(parent) {
                 _fullyQualifiedName = sb.toString()
             }
             return _fullyQualifiedName
+        }
+
+    private var _target: Var? = null
+    var target: Var?
+        get() = _target
+        set(value) {
+            _target = value
         }
 }

@@ -3,6 +3,7 @@ package rml
 import rml.cmds.Command
 import rml.cmds.Return
 import rml.cmds.Var
+import rml.funcs.Func
 
 open class Scope(parent: Scope?) {
 
@@ -54,6 +55,12 @@ open class Scope(parent: Scope?) {
         }
     }
 
+    fun setVar(variable: Var?) {
+        if (variable != null) {
+            _varsStatus[variable.name!!] = variable
+        }
+    }
+
     fun getRoot(): Scope? {
         if (parent != null) {
             return parent?.getRoot()
@@ -68,7 +75,7 @@ open class Scope(parent: Scope?) {
         for (c in commands) {
             val result = c.execute()
             if (c is Var) {
-                _varsStatus[result?.name!!] = result
+                setVar(result)
             } else if (c is Return) {
                 return result
             }

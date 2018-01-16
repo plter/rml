@@ -1,0 +1,20 @@
+konanc_executable(
+        NAME callto
+        SOURCES
+        ../../tools/readFile.kt
+        ../../rml/XMLReader.kt
+        ../../rml/Scope.kt
+        ../../rml/cmds/Command.kt
+        ../../rml/cmds/Var.kt
+        ../../rml/Arg.kt
+        ../../rml/funcs/Print.kt
+        ../../rml/CommonLib.kt
+        ../../rml/cmds/Call.kt
+        ../../rml/cmds/Return.kt
+        ../../rml/funcs/Func.kt
+        ../../rml/funcs/CreateMap.kt
+        ../../rml/funcs/CreateArray.kt
+        ../../rml/Application.kt
+        ../../rml/RMLReader.kt
+        main.kt
+)

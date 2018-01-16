@@ -4,7 +4,6 @@
         <return ref="num"/>
     </func>
 
-    <var name="result"/>
     <call func="getNum" to="result"/>
     <call func="print">
         <arg ref="result"/>

@@ -1,0 +1,10 @@
+<func name="main">
+    <call func="CreateArray" to="arr">
+        <arg value="Hello"/>
+        <arg value="World"/>
+        <arg value="100"/>
+    </call>
+    <call func="print">
+        <arg ref="arr"/>
+    </call>
+</func>
