@@ -1,11 +1,11 @@
 package rml.cmds
 
-import rml.Arg
-import rml.Scope
+import rml.Context
+import rml.funcs.FuncState
 import rml.funcs.CreateMap
 import rml.funcs.Func
 
-class Call(funcName: String, to: String?, target: String?, parent: Scope?, lineNum: Int, fileId: String) : Command(parent, lineNum, fileId) {
+class Call(funcName: String, to: String?, target: String?, parent: Context?, lineNum: Int, fileId: String) : Command(parent, lineNum, fileId) {
     private val _funcName: String = funcName
     val funcName: String get() = _funcName
 
@@ -23,7 +23,7 @@ class Call(funcName: String, to: String?, target: String?, parent: Scope?, lineN
 
     override fun execute(): Var? {
         val target = if (targetName != null) {
-            getVar(targetName!!)
+            (parent as? FuncState)?.getVar(targetName!!)
         } else {
             null
         }
@@ -34,15 +34,21 @@ class Call(funcName: String, to: String?, target: String?, parent: Scope?, lineN
         }
         if (f != null) {
             f.target = target
+
+            for (a in args) {
+                a.parent = parent
+                a.execute()
+            }
+
             val result = f.execute(args)
             if (_to != null) {
-                val toVar = getVar(_to)
+                val toVar = (parent as? FuncState)?.getVar(_to)
                 if (toVar != null) {
                     toVar.value = result?.value
                 } else {
                     if (result != null && parent != null) {
                         val variable = Var(_to, result.value, null, parent, lineNum, fileId)
-                        parent?.setVar(variable)
+                        (parent as? FuncState)?.setVar(variable)
                     }
                 }
             }
@@ -50,5 +56,16 @@ class Call(funcName: String, to: String?, target: String?, parent: Scope?, lineN
             error("Function $funcName not found at line $lineNum in file $fileId")
         }
         return null
+    }
+
+    override fun clone(): Call {
+        val c = Call(funcName, _to, targetName, parent, lineNum, fileId)
+        var na: Arg?
+        for (a in args) {
+            na = a.clone()
+            na.parent = parent
+            c.addArg(na)
+        }
+        return c
     }
 }

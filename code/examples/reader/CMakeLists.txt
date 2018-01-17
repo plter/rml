@@ -3,10 +3,11 @@ konanc_executable(
         SOURCES
         ../../tools/readFile.kt
         ../../rml/XMLReader.kt
-        ../../rml/Scope.kt
+        ../../rml/Context.kt
+        ../../rml/funcs/FuncState.kt
         ../../rml/cmds/Command.kt
         ../../rml/cmds/Var.kt
-        ../../rml/Arg.kt
+        ../../rml/cmds/Arg.kt
         ../../rml/funcs/Print.kt
         ../../rml/CommonLib.kt
         ../../rml/cmds/Call.kt
@@ -14,6 +15,7 @@ konanc_executable(
         ../../rml/funcs/Func.kt
         ../../rml/funcs/CreateMap.kt
         ../../rml/funcs/CreateArray.kt
+        ../../rml/funcs/ArrayGet.kt
         ../../rml/Application.kt
         ../../rml/RMLReader.kt
         main.kt

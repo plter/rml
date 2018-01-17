@@ -1,15 +1,24 @@
 package rml.funcs
 
-import rml.Scope
+import rml.cmds.Arg
+import rml.Context
+import rml.cmds.Command
 import rml.cmds.Var
 
-open class Func(name: String?, ns: String?, parent: Scope?) : Scope(parent) {
+open class Func(name: String?, ns: String?, parent: Context?) : Context(parent) {
 
     private var _name: String? = name
     private var _ns: String? = ns
 
     val ns: String? get() = _ns
     val name: String? get() = _name
+
+    private var _commands = ArrayList<Command>()
+    val commands: List<Command> get() = _commands
+
+    fun addCommand(cmd: Command) {
+        _commands.add(cmd)
+    }
 
     private var _fullyQualifiedName: String? = null
     val fullyQualifiedName: String?
@@ -32,4 +41,15 @@ open class Func(name: String?, ns: String?, parent: Scope?) : Scope(parent) {
         set(value) {
             _target = value
         }
+
+    open fun execute(args: List<Arg>): Var? {
+        val fs = FuncState(name, ns, funcs, this)
+        var nc: Command?
+        for (c in commands) {
+            nc = c.clone()
+            nc.parent = fs
+            fs.addCommand(nc)
+        }
+        return fs.execute(args)
+    }
 }

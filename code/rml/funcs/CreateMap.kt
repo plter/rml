@@ -1,10 +1,10 @@
 package rml.funcs
 
-import rml.Arg
-import rml.Scope
+import rml.cmds.Arg
+import rml.Context
 import rml.cmds.Var
 
-class CreateMap(parent: Scope?) : Func("CreateMap", null, parent) {
+class CreateMap(parent: Context?) : Func("CreateMap", null, parent) {
 
     class RMLMap {
         private val _map = HashMap<String, Any?>()
@@ -23,10 +23,10 @@ class CreateMap(parent: Scope?) : Func("CreateMap", null, parent) {
         }
     }
 
-    class SetFunc(parent: Scope?) : Func(null, null, parent) {
+    class SetFunc(parent: Context?) : Func(null, null, parent) {
         override fun execute(args: List<Arg>): Var? {
             if (args.size == 2) {
-                (target?.value as? RMLMap)?.set(args[0].getValue() as String, Var(null, args[1].getValue(), null, parent, 0, "CreateMap.kt"))
+                (target?.value as? RMLMap)?.set(args[0].value as String, Var(null, args[1].value, null, parent, 0, "CreateMap.kt"))
             } else {
                 error("Map.set requires two args")
             }
@@ -34,10 +34,10 @@ class CreateMap(parent: Scope?) : Func("CreateMap", null, parent) {
         }
     }
 
-    class GetFunc(parent: Scope?) : Func(null, null, parent) {
+    class GetFunc(parent: Context?) : Func(null, null, parent) {
         override fun execute(args: List<Arg>): Var? {
             if (args.size == 1) {
-                return (target?.value as? RMLMap)?.get(args[0].getValue() as String) as? Var
+                return (target?.value as? RMLMap)?.get(args[0].value as String) as? Var
             } else {
                 error("Map.get requires 1 arg")
             }

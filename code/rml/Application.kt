@@ -1,6 +1,6 @@
 package rml
 
-class Application(parent: Scope?) : Scope(parent) {
+class Application(parent: Context?) : Context(parent) {
 
     init {
         CommonLib.addFuncsTo(this)
