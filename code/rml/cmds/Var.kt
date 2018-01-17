@@ -8,6 +8,7 @@ open class Var(name: String?, value: Any?, refName: String?, parent: Context?, l
     private var _name: String? = name
     private var _value: Any? = value
     private var _refName: String? = refName
+    val refName: String? get() = _refName
 
     val name: String?
         get() = _name
@@ -32,7 +33,7 @@ open class Var(name: String?, value: Any?, refName: String?, parent: Context?, l
     }
 
     override fun toString(): String {
-        return "$value"
+        return "Var($value)"
     }
 
     override fun clone(): Command {

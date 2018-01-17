@@ -1,5 +1,11 @@
 <func name="main">
-    <call func="print">
-        <arg value="Hello World"/>
-    </call>
+    <func name="sayHello">
+        <call func="print">
+            <call func="array.get" to="arg0">
+                <arg value="0"/>
+                <arg ref="args"/>
+            </call>
+            <arg ref="arg0"/>
+        </call>
+    </func>
 </func>

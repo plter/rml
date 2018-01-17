@@ -15,7 +15,6 @@ konanc_executable(
         ../../rml/funcs/Func.kt
         ../../rml/funcs/CreateMap.kt
         ../../rml/funcs/CreateArray.kt
-        ../../rml/funcs/ArrayGet.kt
         ../../rml/Application.kt
         ../../rml/RMLReader.kt
         main.kt

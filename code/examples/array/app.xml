@@ -1,12 +1,21 @@
 <func name="main">
+    <var name="num" value="200"/>
     <call func="CreateArray" to="arr">
         <arg value="Hello"/>
         <arg value="World"/>
         <arg value="100"/>
     </call>
-    <call func="array.get" to="result">
+    <call func="addItem" target="arr">
+        <arg ref="num"/>
+    </call>
+    <call func="getItem" target="arr" to="result">
         <arg value="0"/>
+    </call>
+    <call func="print">
         <arg ref="arr"/>
+    </call>
+    <call func="print">
+        <arg value="\n"/>
     </call>
     <call func="print">
         <arg ref="result"/>

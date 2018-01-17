@@ -1,0 +1,5 @@
+<func name="main">
+    <call func="print">
+        <arg value="Hello World"/>
+    </call>
+</func>

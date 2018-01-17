@@ -1,5 +1,5 @@
 konanc_executable(
-        NAME reader
+        NAME func
         SOURCES
         ../../tools/readFile.kt
         ../../rml/XMLReader.kt

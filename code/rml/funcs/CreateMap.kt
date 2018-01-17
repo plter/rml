@@ -4,13 +4,13 @@ import rml.cmds.Arg
 import rml.Context
 import rml.cmds.Var
 
-class CreateMap(parent: Context?) : Func("CreateMap", null, parent) {
+open class CreateMap(parent: Context?, name: String? = "CreateMap", ns: String? = null) : Func(name, ns, parent) {
 
     class RMLMap {
-        private val _map = HashMap<String, Any?>()
-        val map: HashMap<String, Any?> get() = _map
+        private val _map = HashMap<String, Var?>()
+        val map: HashMap<String, Var?> get() = _map
 
-        fun set(key: String, value: Any?) {
+        fun set(key: String, value: Var?) {
             map[key] = value
         }
 
