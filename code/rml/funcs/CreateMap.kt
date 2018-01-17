@@ -26,7 +26,7 @@ open class CreateMap(parent: Context?, name: String? = "CreateMap", ns: String? 
     class SetFunc(parent: Context?) : Func(null, null, parent) {
         override fun execute(args: List<Arg>): Var? {
             if (args.size == 2) {
-                (target?.value as? RMLMap)?.set(args[0].value as String, Var(null, args[1].value, null, parent, 0, "CreateMap.kt"))
+                MapTools.getRMLMap(target)?.set(args[0].value as String, Var(null, args[1].value, null, parent, 0, "CreateMap.kt"))
             } else {
                 error("Map.set requires two args")
             }
@@ -37,7 +37,7 @@ open class CreateMap(parent: Context?, name: String? = "CreateMap", ns: String? 
     class GetFunc(parent: Context?) : Func(null, null, parent) {
         override fun execute(args: List<Arg>): Var? {
             if (args.size == 1) {
-                return (target?.value as? RMLMap)?.get(args[0].value as String) as? Var
+                return MapTools.getRMLMap(target)?.get(args[0].value as String) as? Var
             } else {
                 error("Map.get requires 1 arg")
             }
@@ -50,5 +50,11 @@ open class CreateMap(parent: Context?, name: String? = "CreateMap", ns: String? 
         map.set("get", Var(null, GetFunc(parent), null, parent, 0, "CreateMap.kt"))
 
         return Var(null, map, null, parent, 0, "CreateMap.kt")
+    }
+
+    object MapTools {
+        fun getRMLMap(target: Var?): RMLMap? {
+            return (target?.value as? RMLMap)
+        }
     }
 }

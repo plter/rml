@@ -10,8 +10,11 @@ open class Var(name: String?, value: Any?, refName: String?, parent: Context?, l
     private var _refName: String? = refName
     val refName: String? get() = _refName
 
-    val name: String?
+    var name: String?
         get() = _name
+        set(value) {
+            _name = value
+        }
 
     var value: Any?
         get() = _value

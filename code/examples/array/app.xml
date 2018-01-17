@@ -17,6 +17,14 @@
     <call func="print">
         <arg value="\n"/>
     </call>
+    <call func="size" target="arr" to="arraySize"/>
+    <call func="print">
+        <arg value="array size"/>
+        <arg ref="arraySize"/>
+    </call>
+    <call func="print">
+        <arg value="\n"/>
+    </call>
     <call func="print">
         <arg ref="result"/>
     </call>

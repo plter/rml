@@ -1,5 +1,14 @@
 <func name="main">
-    <call func="print">
-        <arg value="Hello World"/>
+    <func name="sayHello">
+        <call func="getItem" target="arguments" to="theName">
+            <arg value="0"/>
+        </call>
+        <call func="print">
+            <arg value="Hello"/>
+            <arg ref="theName"/>
+        </call>
+    </func>
+    <call func="sayHello">
+        <arg value="yunp"/>
     </call>
 </func>
