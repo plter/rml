@@ -32,7 +32,6 @@ class FuncState(name: String?, ns: String?, funcs: HashMap<String, Func>, parent
     }
 
     override fun execute(args: List<Arg>): Var? {
-
         val arguments = CreateArray(this).execute(args)
         arguments?.name = "arguments"
         setVar(arguments)

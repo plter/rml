@@ -1,5 +1,5 @@
 konanc_executable(
-        NAME map
+        NAME if
         SOURCES
         ../../tools/readFile.kt
         ../../rml/XMLReader.kt

@@ -2,6 +2,7 @@ package rml.funcs
 
 import rml.cmds.Arg
 import rml.Context
+import rml.cmds.Call
 import rml.cmds.Var
 
 class CreateArray(parent: Context?) : CreateMap(parent, "CreateArray", null) {
@@ -31,7 +32,7 @@ class CreateArray(parent: Context?) : CreateMap(parent, "CreateArray", null) {
     class GetItemFunc(parent: Context?) : Func(null, null, parent) {
         override fun execute(args: List<Arg>): Var? {
             if (args.size == 1) {
-                return ArrayTools.getRMLArray(target)?.get((args[0].value as? String)?.toInt()!!)
+                return ArrayTools.getRMLArray(target)?.get(args[0].asInt()!!)
             } else {
                 error("Array.getItem requires 1 arg")
             }
@@ -59,18 +60,20 @@ class CreateArray(parent: Context?) : CreateMap(parent, "CreateArray", null) {
             arr.add(a)
         }
 
-        val rmlMap = MapTools.getRMLMap(v)
-        rmlMap?.set("__bound_array__", Var(null, arr, null, parent, 0, "CreateArray.kt"))
-        rmlMap?.set("getItem", Var(null, GetItemFunc(parent), null, parent, 0, "CreateArray.kt"))
-        rmlMap?.set("addItem", Var(null, AddItemFunc(parent), null, parent, 0, "CreateArray.kt"))
-        rmlMap?.set("size", Var(null, GetSizeFunc(parent), null, parent, 0, "CreateArray.kt"))
-
+        MapTools.setVar("__bound_array__", arr, v)
+        MapTools.setVar("getItem", GetItemFunc(parent), v)
+        MapTools.setVar("addItem", AddItemFunc(parent), v)
+        MapTools.setVar("size", GetSizeFunc(parent), v)
         return v
     }
 
     object ArrayTools {
         fun getRMLArray(target: Var?): RMLArray? {
-            return (((target?.value as? RMLMap)?.get("__bound_array__") as? Var)?.value as? RMLArray)
+            return MapTools.getVar("__bound_array__", target)?.asRMLArray()
         }
+    }
+
+    object Constants {
+        const val fileId = "CreateArray.kt"
     }
 }

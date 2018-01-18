@@ -5,15 +5,22 @@ import rml.funcs.FuncState
 import rml.funcs.CreateMap
 import rml.funcs.Func
 
-class Call(funcName: String, to: String?, target: String?, parent: Context?, lineNum: Int, fileId: String) : Command(parent, lineNum, fileId) {
+class Call(funcName: String, to: String?, targetName: String?, parent: Context?, lineNum: Int, fileId: String) : Command(parent, lineNum, fileId) {
     private val _funcName: String = funcName
     val funcName: String get() = _funcName
 
     private val _args = ArrayList<Arg>()
     val args: ArrayList<Arg> get() = _args
 
-    private val _targetName: String? = target
+    private val _targetName: String? = targetName
     val targetName: String? get() = _targetName
+
+    private var _target: Var? = null
+    var target: Var?
+        get() = _target
+        set(value) {
+            _target = value
+        }
 
     private val _to: String? = to
 
@@ -22,13 +29,15 @@ class Call(funcName: String, to: String?, target: String?, parent: Context?, lin
     }
 
     override fun execute(): Var? {
-        val target = if (targetName != null) {
-            (parent as? FuncState)?.getVar(targetName!!)
-        } else {
-            null
+        if (target == null) {
+            target = if (targetName != null) {
+                (parent as? FuncState)?.getVar(targetName!!)
+            } else {
+                null
+            }
         }
         val f: Func? = if (target != null) {
-            ((target.value as? CreateMap.RMLMap)?.get(funcName) as? Var)?.value as? Func
+            CreateMap.MapTools.getVar(funcName, target)?.asFunc()
         } else {
             getFunc(funcName)
         }

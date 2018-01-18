@@ -3,9 +3,15 @@
         <call func="getItem" target="arguments" to="theName">
             <arg value="0"/>
         </call>
-        <call func="print">
-            <arg value="Hello"/>
+        <call func="formString" to="str">
+            <arg value="Hello "/>
             <arg ref="theName"/>
+        </call>
+        <call func="println">
+            <arg ref="str"/>
+        </call>
+        <call func="println">
+            <arg ref="arguments"/>
         </call>
     </func>
     <call func="sayHello">

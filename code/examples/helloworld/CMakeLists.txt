@@ -9,10 +9,12 @@ konanc_executable(
         ../../rml/cmds/Var.kt
         ../../rml/cmds/Arg.kt
         ../../rml/funcs/Print.kt
+        ../../rml/funcs/Println.kt
         ../../rml/CommonLib.kt
         ../../rml/cmds/Call.kt
         ../../rml/cmds/Return.kt
         ../../rml/funcs/Func.kt
+        ../../rml/funcs/FormString.kt
         ../../rml/funcs/CreateMap.kt
         ../../rml/funcs/CreateArray.kt
         ../../rml/Application.kt
