@@ -1,5 +1,0 @@
-<app>
-    <!--This is a comment-->
-    <var name="name" value="yunp"/>
-    <var name="age" value="2"/>
-</app>
