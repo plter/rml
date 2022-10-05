@@ -9,4 +9,6 @@ void *LinkedMapCreate();
 
 void LinkedMapDestroy(void *self);
 
+void LinkedMapPut(char *key, void *value);
+
 #endif //RML_LINKEDMAP_H
