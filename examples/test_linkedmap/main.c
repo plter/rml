@@ -3,10 +3,11 @@
 //
 
 #include <LinkedMap.h>
+#include <rml_debug_out.h>
 #include <stdio.h>
 
 void printValue(void *map, char *key, void *value) {
-    printf("%s = %s\n", key, (char *) value);
+    RML_INFO("%s = %s", key, (char *) value);
 }
 
 int main() {
@@ -15,13 +16,13 @@ int main() {
     LinkedMapPut(map, "name", "C Language");
     LinkedMapPut(map, "age", "30");
     LinkedMapPut(map, "gender", "male");
-    printf("Length: %lld\n", LinkedMapGetLength(map));
+    RML_INFO("Length: %lld", LinkedMapGetLength(map));
 
     LinkedMapRemove(map, "age");
-    printf("Length: %lld\n", LinkedMapGetLength(map));
+    RML_INFO("Length: %lld", LinkedMapGetLength(map));
 
     LinkedMapRemove(map, "age");
-    printf("Length: %lld\n", LinkedMapGetLength(map));
+    RML_INFO("Length: %lld", LinkedMapGetLength(map));
 
     LinkedMapEach(map, &printValue);
 

@@ -22,17 +22,22 @@ struct rml_LinkedMap {
     uint64_t length_;
 };
 
-static struct rml_LinkedMapItem *rml_LinkedMapItemCreate() {
-    struct rml_LinkedMapItem *item = malloc(sizeof(struct rml_LinkedMapItem));
+static void rml_LinkedMapItemReset(struct rml_LinkedMapItem *item) {
     item->value_ = NULL;
     item->key_ = NULL;
     item->pre_ = NULL;
     item->next_ = NULL;
+}
+
+static struct rml_LinkedMapItem *rml_LinkedMapItemCreate() {
+    struct rml_LinkedMapItem *item = malloc(sizeof(struct rml_LinkedMapItem));
+    rml_LinkedMapItemReset(item);
     return item;
 }
 
 static void rml_LinkedMapItemDestroy(struct rml_LinkedMapItem *item) {
     if (item != NULL) {
+        rml_LinkedMapItemReset(item);
         free(item);
     }
 }
@@ -126,8 +131,6 @@ void *LinkedMapRemove(void *self, char *key) {
         selfMap->anchor_ = item->next_;
     }
     selfMap->length_--;
-    item->next_ = NULL;
-    item->pre_ = NULL;
     rml_LinkedMapItemDestroy(item);
     return item->value_;
 }

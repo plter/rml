@@ -20,7 +20,7 @@
 #define RML_OUTPUT(LEVEL, FORMAT, ARGS...) {                        \
     char timebuf[32];                                               \
     get_current_local_time(timebuf,32);                             \
-    printf("[%s] [%s] %s(%d) ",timebuf,LEVEL,__FILE__,__LINE__);    \
+    printf("[%s] %s(%d) [%s] ",timebuf,__FILE__,__LINE__,LEVEL);    \
     printf(FORMAT,##ARGS);                                          \
     printf("\n");                                                   \
 }
