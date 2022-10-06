@@ -2,21 +2,21 @@
 // Created by peter on 2022/10/4.
 //
 
-#ifndef RML_LINKEDMAP_H
-#define RML_LINKEDMAP_H
+#ifndef RML_RMLLINKEDMAP_H
+#define RML_RMLLINKEDMAP_H
 
 #include <stdint.h>
 
 typedef void(*LinkedMapEachCallback)(void *linkedMap, char *key, void *value);
 
-void *LinkedMapCreate();
+void *rmlLinkedMapCreate();
 
 /**
  * LinkedMap dose not destroy values, you should destroy your values as you need before you destroy the LinkedMap
  *
  * @param self
  */
-void LinkedMapDestroy(void *self);
+void rmlLinkedMapDestroy(void *self);
 
 /**
  * Put key-value to the map, and return the value
@@ -26,7 +26,7 @@ void LinkedMapDestroy(void *self);
  * @param value
  * @return
  */
-void *LinkedMapPut(void *self, char *key, void *value);
+void *rmlLinkedMapPut(void *self, char *key, void *value);
 
 /**
  * Remove and return a value by key, return NULL if the value dose not exists
@@ -35,9 +35,9 @@ void *LinkedMapPut(void *self, char *key, void *value);
  * @param key
  * @return
  */
-void *LinkedMapRemove(void *self, char *key);
+void *rmlLinkedMapRemove(void *self, char *key);
 
-int64_t LinkedMapGetLength(void *self);
+int64_t rmlLinkedMapGetLength(void *self);
 
 /**
  * You'd better do not change values of this LinkedMap when you executing this function
@@ -45,6 +45,6 @@ int64_t LinkedMapGetLength(void *self);
  * @param self
  * @param callback
  */
-void LinkedMapEach(void *self, LinkedMapEachCallback callback);
+void rmlLinkedMapEach(void *self, LinkedMapEachCallback callback);
 
-#endif //RML_LINKEDMAP_H
+#endif //RML_RMLLINKEDMAP_H

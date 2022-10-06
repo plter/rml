@@ -2,7 +2,7 @@
 // Created by peter on 2022/10/6.
 //
 
-#include <LinkedMap.h>
+#include <rmlLinkedMap.h>
 #include <rml_debug_out.h>
 #include <stdio.h>
 
@@ -12,20 +12,20 @@ void printValue(void *map, char *key, void *value) {
 
 int main() {
 
-    void *map = LinkedMapCreate();
-    LinkedMapPut(map, "name", "C Language");
-    LinkedMapPut(map, "age", "30");
-    LinkedMapPut(map, "gender", "male");
-    RML_INFO("Length: %lld", LinkedMapGetLength(map));
+    void *map = rmlLinkedMapCreate();
+    rmlLinkedMapPut(map, "name", "C Language");
+    rmlLinkedMapPut(map, "age", "30");
+    rmlLinkedMapPut(map, "gender", "male");
+    RML_INFO("Length: %lld", rmlLinkedMapGetLength(map));
 
-    LinkedMapRemove(map, "age");
-    RML_INFO("Length: %lld", LinkedMapGetLength(map));
+    rmlLinkedMapRemove(map, "age");
+    RML_INFO("Length: %lld", rmlLinkedMapGetLength(map));
 
-    LinkedMapRemove(map, "age");
-    RML_INFO("Length: %lld", LinkedMapGetLength(map));
+    rmlLinkedMapRemove(map, "age");
+    RML_INFO("Length: %lld", rmlLinkedMapGetLength(map));
 
-    LinkedMapEach(map, &printValue);
+    rmlLinkedMapEach(map, &printValue);
 
-    LinkedMapDestroy(map);
+    rmlLinkedMapDestroy(map);
     return 0;
 }
