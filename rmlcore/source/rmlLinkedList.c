@@ -208,14 +208,13 @@ void *rmlLinkedListRemoveItem(void *self, void *item) {
     if (theItem->pre_ != NULL) {
         theItem->pre_->next_ = theItem->next_;
     }
-    struct rmlLinkedList *selfList = self;
-    if (item == selfList->head_) {
-        selfList->head_ = theItem->next_;
+    if (item == theList->head_) {
+        theList->head_ = theItem->next_;
     }
-    if (item == selfList->tail_) {
-        selfList->tail_ = theItem->pre_;
+    if (item == theList->tail_) {
+        theList->tail_ = theItem->pre_;
     }
-    selfList->length_--;
+    theList->length_--;
 
     void *value = theItem->value_;
     rmlLinkedListItemDestroy(item);
