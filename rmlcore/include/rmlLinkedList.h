@@ -71,10 +71,10 @@ void *rmlLinkedListGet(void *self, int64_t index);
 int64_t rmlLinkedListGetLength(void *self);
 
 /**
- * Your must be sure that this item in the LinkedList before you remove it
+ * Remove item and return it's value, return NULL if the item is NULL or the item not in the list
  * @param item
  */
-void rmlLinkedListRemoveItem(void *self, void *item);
+void *rmlLinkedListRemoveItem(void *self, void *item);
 
 /**
  * You'd better do not change values of this LinkedMap when you executing this function

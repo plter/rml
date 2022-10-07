@@ -152,15 +152,7 @@ void *rmlLinkedListPop(void *self) {
         return NULL;
     }
 
-    struct rmlLinkedListItem *pendingDestroyItem = selfList->tail_;
-    selfList->tail_ = selfList->tail_->pre_;
-    if (selfList->tail_ != NULL) {
-        selfList->tail_->next_ = NULL;
-    }
-    selfList->length_--;
-    void *value = pendingDestroyItem->value_;
-    rmlLinkedListItemDestroy(pendingDestroyItem);
-    return value;
+    return rmlLinkedListRemoveItem(self, selfList->tail_);
 }
 
 void *rmlLinkedListShift(void *self) {
@@ -169,15 +161,7 @@ void *rmlLinkedListShift(void *self) {
         return NULL;
     }
 
-    struct rmlLinkedListItem *pendingDestroyItem = selfList->head_;
-    selfList->head_ = selfList->head_->next_;
-    if (selfList->head_ != NULL) {
-        selfList->head_->pre_ = NULL;
-    }
-    selfList->length_--;
-    void *value = pendingDestroyItem->value_;
-    rmlLinkedListItemDestroy(pendingDestroyItem);
-    return value;
+    return rmlLinkedListRemoveItem(self, selfList->head_);
 }
 
 
@@ -207,14 +191,15 @@ void *rmlLinkedListGet(void *self, int64_t index) {
     return item != NULL ? item->value_ : NULL;
 }
 
-void rmlLinkedListRemoveItem(void *self, void *item) {
+void *rmlLinkedListRemoveItem(void *self, void *item) {
     if (item == NULL) {
-        return;
+        return NULL;
     }
 
+    struct rmlLinkedList *theList = self;
     struct rmlLinkedListItem *theItem = item;
-    if (theItem->pre_ == NULL && theItem->next_ == NULL) {
-        return;
+    if (theItem->pre_ == NULL && theItem->next_ == NULL && theItem != theList->head_ && theItem != theList->tail_) {
+        return NULL;
     }
 
     if (theItem->next_ != NULL) {
@@ -231,7 +216,10 @@ void rmlLinkedListRemoveItem(void *self, void *item) {
         selfList->tail_ = theItem->pre_;
     }
     selfList->length_--;
+
+    void *value = theItem->value_;
     rmlLinkedListItemDestroy(item);
+    return value;
 }
 
 void *rmlLinkedListItemGetValue(void *item) {
