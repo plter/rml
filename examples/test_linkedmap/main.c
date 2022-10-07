@@ -2,30 +2,31 @@
 // Created by peter on 2022/10/6.
 //
 
-#include <rmlLinkedList.h>
+#include <rmlLinkedMap.h>
 #include <rml_debug_out.h>
 #include <stdio.h>
 
-//void printValue(void *map, char *key, void *value) {
-//    RML_INFO("%s = %s", key, (char *) value);
-//}
+bool printValue(rmlLinkedMapEachCallbackContext *context) {
+    RML_INFO("%s = %s", context->key, (char *) context->value);
+    return false;
+}
 
 int main() {
 
-//    void *map = rmlLinkedListCreate();
-//    rmlLinkedListPut(map, "name", "C Language");
-//    rmlLinkedListPut(map, "age", "30");
-//    rmlLinkedListPut(map, "gender", "male");
-//    RML_INFO("Length: %lld", rmlLinkedListGetLength(map));
-//
-//    rmlLinkedListRemove(map, "age");
-//    RML_INFO("Length: %lld", rmlLinkedListGetLength(map));
-//
-//    rmlLinkedListRemove(map, "age");
-//    RML_INFO("Length: %lld", rmlLinkedListGetLength(map));
-//
-//    rmlLinkedListEach(map, &printValue);
-//
-//    rmlLinkedListDestroy(map);
+    void *map = rmlLinkedMapCreate();
+    rmlLinkedMapPut(map, "name", "C Language");
+    rmlLinkedMapPut(map, "age", "30");
+    rmlLinkedMapPut(map, "gender", "male");
+    RML_INFO("Length: %lld", rmlLinkedMapGetLength(map));
+
+    rmlLinkedMapRemove(map, "age");
+    RML_INFO("Length: %lld", rmlLinkedMapGetLength(map));
+
+    rmlLinkedMapRemove(map, "age");
+    RML_INFO("Length: %lld", rmlLinkedMapGetLength(map));
+
+    rmlLinkedMapEach(map, &printValue, NULL);
+
+    rmlLinkedMapDestroy(map);
     return 0;
 }

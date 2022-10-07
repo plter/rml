@@ -6,8 +6,31 @@
 #define RML_RMLLINKEDLIST_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
-typedef void(*LinkedListEachCallback)(void *linkedMap, void *value, void *attachment);
+typedef struct {
+    /**
+     * User data
+     */
+    void *attachment;
+    /**
+     * The value
+     */
+    void *value;
+    /**
+     * The value wrapper
+     */
+    void *valueItem;
+    /**
+     * The target LinkedList
+     */
+    void *linkedList;
+} rmlLinkedListEachCallbackContext;
+
+/**
+ * Return true if you want to break the loop
+ */
+typedef bool (*rmlLinkedListEachCallback)(rmlLinkedListEachCallbackContext *context);
 
 void *rmlLinkedListCreate();
 
@@ -46,11 +69,24 @@ void *rmlLinkedListGet(void *self, int64_t index);
 int64_t rmlLinkedListGetLength(void *self);
 
 /**
+ * Your must be sure that this item in the LinkedList before you remove it
+ * @param item
+ */
+void rmlLinkedListRemoveItem(void *self, void *item);
+
+/**
  * You'd better do not change values of this LinkedMap when you executing this function
  *
  * @param self
  * @param callback
  */
-void rmlLinkedListEach(void *self, LinkedListEachCallback callback, void *attachment);
+void rmlLinkedListEach(void *self, rmlLinkedListEachCallback callback, void *attachment);
+
+/**
+ * Return NULL if the item is NULL
+ * @param item
+ * @return
+ */
+void *rmlLinkedListItemGetValue(void *item);
 
 #endif //RML_RMLLINKEDLIST_H

@@ -7,4 +7,5 @@ add_library(
         source/time_utils.c
         source/key_utils.c
         source/rmlMap.c
+        source/rmlLinkedMap.c
 )

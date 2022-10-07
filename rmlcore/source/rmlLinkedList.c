@@ -59,7 +59,7 @@ void *rmlLinkedListCreate() {
     struct rmlLinkedList *map = malloc(sizeof(struct rmlLinkedList));
     rmlLinkedListReset(map);
 
-    RML_DEBUG("Run rmlLinkedListCreate")
+    RML_DEBUG("Create LinkedList")
     return map;
 }
 
@@ -73,7 +73,7 @@ void rmlLinkedListDestroy(void *self) {
     rmlLinkedListReset(self);
     free(m);
 
-    RML_DEBUG("Run rmlLinkedListDestroy")
+    RML_DEBUG("Destroy LinkedList")
 }
 
 
@@ -137,21 +137,7 @@ void *rmlLinkedListRemove(void *self, int64_t index) {
     if (item == NULL) {
         return NULL;
     }
-    if (item->next_ != NULL) {
-        item->next_->pre_ = item->pre_;
-    }
-    if (item->pre_ != NULL) {
-        item->pre_->next_ = item->next_;
-    }
-    struct rmlLinkedList *selfList = self;
-    if (item == selfList->head_) {
-        selfList->head_ = item->next_;
-    }
-    if (item == selfList->tail_) {
-        selfList->tail_ = item->pre_;
-    }
-    selfList->length_--;
-    rmlLinkedListItemDestroy(item);
+    rmlLinkedListRemoveItem(self, item);
     return item->value_;
 }
 
@@ -195,11 +181,20 @@ void *rmlLinkedListShift(void *self) {
 }
 
 
-void rmlLinkedListEach(void *self, LinkedListEachCallback callback, void *attachment) {
+void rmlLinkedListEach(void *self, rmlLinkedListEachCallback callback, void *attachment) {
     struct rmlLinkedList *selfList = self;
+    rmlLinkedListEachCallbackContext context;
+    context.linkedList = selfList;
+    context.attachment = attachment;
     for (struct rmlLinkedListItem *current = selfList->head_; current != NULL; current = current->next_) {
-        if (callback != NULL) {
-            callback(selfList, current->value_, attachment);
+        if (callback == NULL) {
+            break;
+        }
+
+        context.valueItem = current;
+        context.value = current->value_;
+        if (callback(&context)) {
+            break;
         }
     }
 }
@@ -207,4 +202,38 @@ void rmlLinkedListEach(void *self, LinkedListEachCallback callback, void *attach
 void *rmlLinkedListGet(void *self, int64_t index) {
     struct rmlLinkedListItem *item = rmlLinkedListGetItem_(self, index);
     return item != NULL ? item->value_ : NULL;
+}
+
+void rmlLinkedListRemoveItem(void *self, void *item) {
+    if (item == NULL) {
+        return;
+    }
+
+    struct rmlLinkedListItem *theItem = item;
+    if (theItem->pre_ == NULL && theItem->next_ == NULL) {
+        return;
+    }
+
+    if (theItem->next_ != NULL) {
+        theItem->next_->pre_ = theItem->pre_;
+    }
+    if (theItem->pre_ != NULL) {
+        theItem->pre_->next_ = theItem->next_;
+    }
+    struct rmlLinkedList *selfList = self;
+    if (item == selfList->head_) {
+        selfList->head_ = theItem->next_;
+    }
+    if (item == selfList->tail_) {
+        selfList->tail_ = theItem->pre_;
+    }
+    selfList->length_--;
+    rmlLinkedListItemDestroy(item);
+}
+
+void *rmlLinkedListItemGetValue(void *item) {
+    if (item == NULL) {
+        return NULL;
+    }
+    return ((struct rmlLinkedListItem *) item)->value_;
 }

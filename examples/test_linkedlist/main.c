@@ -3,10 +3,10 @@
 //
 #include <rmlLinkedList.h>
 #include <rml_debug_out.h>
-#include <stdlib.h>
 
-void eachCallback(void *list, void *value, void *attachment) {
-    RML_INFO("%s", (char *) value)
+bool eachCallback(rmlLinkedListEachCallbackContext *context) {
+    RML_INFO("%s", (char *) context->value)
+    return false;
 }
 
 
