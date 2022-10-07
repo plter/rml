@@ -107,6 +107,10 @@ void *rmlLinkedMapRemove(void *self, char *key) {
 }
 
 void rmlLinkedMapDestroy(void *self) {
+    if (self == NULL) {
+        return;
+    }
+
     while (rmlLinkedListGetLength(self) > 0) {
         struct rmlLinkedMapKeyValuePair_ *pair = rmlLinkedListPop(self);
         rmlLinkedMapKeyValuePairDestroy(pair);

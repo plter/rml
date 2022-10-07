@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 int main() {
-    int a;
-    printf("%llx\n", (u_int64_t) &a);
+    printf("%ld\n", sizeof(void *));
     return 0;
 }
