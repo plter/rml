@@ -7,7 +7,7 @@
 
 int main() {
     char buf[32];
-    get_current_local_time(buf, 32);
+    rml_get_current_local_time(buf, 32);
     printf("%s\n", buf);
     return 0;
 }
