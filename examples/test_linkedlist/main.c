@@ -5,7 +5,7 @@
 #include <rml_debug_out.h>
 
 bool eachCallback(rmlLinkedListEachCallbackContext *context) {
-    RML_INFO("%s", (char *) context->value)
+    RML_INFO("Index: %lld, value: %s", context->index, (char *) context->value)
     return false;
 }
 

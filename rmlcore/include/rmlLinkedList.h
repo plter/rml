@@ -25,6 +25,8 @@ typedef struct {
      * The target LinkedList
      */
     void *linkedList;
+
+    int64_t index;
 } rmlLinkedListEachCallbackContext;
 
 /**

@@ -186,6 +186,7 @@ void rmlLinkedListEach(void *self, rmlLinkedListEachCallback callback, void *att
     rmlLinkedListEachCallbackContext context;
     context.linkedList = selfList;
     context.attachment = attachment;
+    int64_t index = 0;
     for (struct rmlLinkedListItem *current = selfList->head_; current != NULL; current = current->next_) {
         if (callback == NULL) {
             break;
@@ -193,9 +194,11 @@ void rmlLinkedListEach(void *self, rmlLinkedListEachCallback callback, void *att
 
         context.valueItem = current;
         context.value = current->value_;
+        context.index = index;
         if (callback(&context)) {
             break;
         }
+        index++;
     }
 }
 
