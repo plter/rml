@@ -2,7 +2,7 @@
 // Created by peter on 2022/10/6.
 //
 #include <rmlLinkedList.h>
-#include <rml_debug_out.h>
+#include <rml_log.h>
 
 bool eachCallback(rmlLinkedListEachCallbackContext *context) {
     RML_INFO("Index: %lld, value: %s", context->index, (char *) context->value)

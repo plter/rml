@@ -4,7 +4,7 @@
 
 #include "../include/rmlLinkedMap.h"
 #include "../include/rmlLinkedList.h"
-#include "../include/rml_debug_out.h"
+#include "../include/rml_log.h"
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -15,8 +15,8 @@ struct rmlLinkedMapKeyValuePair_ {
 };
 
 static struct rmlLinkedMapKeyValuePair_ *rmlLinkedMapKeyValuePairCreate() {
-    RML_DEBUG("Create LinkedMap Key-Value pair")
     struct rmlLinkedMapKeyValuePair_ *pair = malloc(sizeof(struct rmlLinkedMapKeyValuePair_));
+    RML_VERBOSE("Created LinkedMap Key-Value pair(0x%llx)", (uint64_t) pair)
     pair->value = NULL;
     pair->key = NULL;
     return pair;
@@ -24,30 +24,25 @@ static struct rmlLinkedMapKeyValuePair_ *rmlLinkedMapKeyValuePairCreate() {
 
 static void rmlLinkedMapKeyValuePairDestroy(struct rmlLinkedMapKeyValuePair_ *self) {
     if (self != NULL) {
-        RML_DEBUG("Destroy LinkedMap Key-Value pair")
+#if RML_LOG_VERBOSE_ENABLED
+        RML_VERBOSE(
+                "Destroy LinkedMap Key-Value pair(0x%llx) with key: %s",
+                (uint64_t) self,
+                self->key != NULL ? self->key : "NULL"
+        )
+#endif
+        if (self->key != NULL) {
+            RML_VERBOSE("Destroy key(0x%llx)", (uint64_t) self->key)
+            free(self->key);
+        }
         free(self);
     }
 }
 
 
 void *rmlLinkedMapCreate() {
-    RML_DEBUG("Create LinkedMap, also create the related LinkedList")
+    RML_VERBOSE("Create LinkedMap, also create the related LinkedList")
     return rmlLinkedListCreate();
-}
-
-void *rmlLinkedMapPut(void *self, char *key, void *value) {
-    assert(key != NULL);
-
-    struct rmlLinkedMapKeyValuePair_ *pair = rmlLinkedMapGet(self, key);
-    if (pair == NULL) {
-        pair = rmlLinkedMapKeyValuePairCreate();
-        pair->key = key;
-        pair->value = value;
-        rmlLinkedListPush(self, pair);
-    } else {
-        pair->value = value;
-    }
-    return value;
 }
 
 
@@ -87,12 +82,18 @@ static void *rmlLinkedMapGetPairItem(void *self, char *key) {
 }
 
 
-void *rmlLinkedMapGet(void *self, char *key) {
+static void *rmlLinkedMapGetPair(void *self, char *key) {
     struct rmlLinkedMapGetEachCallbackAttachment_ attachment;
     rmlLinkedMapGetCallbackAttachment_reset(&attachment);
     attachment.key = key;
     rmlLinkedListEach(self, &rmlLinkedMapGetPairItemEachCallback, &attachment);
-    return attachment.pair != NULL ? attachment.pair->value : NULL;
+    return attachment.pair;
+}
+
+
+void *rmlLinkedMapGet(void *self, char *key) {
+    struct rmlLinkedMapKeyValuePair_ *pair = rmlLinkedMapGetPair(self, key);
+    return pair != NULL ? pair->value : NULL;
 }
 
 void *rmlLinkedMapRemove(void *self, char *key) {
@@ -116,7 +117,7 @@ void rmlLinkedMapDestroy(void *self) {
         rmlLinkedMapKeyValuePairDestroy(pair);
     }
 
-    RML_DEBUG("Destroy LinkedMap, also destroy the related LinkedList")
+    RML_VERBOSE("Destroy LinkedMap(0x%llx), also destroy the related LinkedList", (uint64_t) self)
     rmlLinkedListDestroy(self);
 }
 
@@ -153,4 +154,26 @@ void rmlLinkedMapEach(void *self, rmlLinkedMapEachCallback callback, void *attac
     mapAttachment.mapEachContext = &mapEachContext;
 
     rmlLinkedListEach(self, &rmlLinkedMapEachEachCallback, &mapAttachment);
+}
+
+void *rmlLinkedMapPut(void *self, char *key, void *value) {
+    assert(key != NULL);
+
+    struct rmlLinkedMapKeyValuePair_ *pair = rmlLinkedMapGetPair(self, key);
+    if (pair == NULL) {
+        pair = rmlLinkedMapKeyValuePairCreate();
+
+        int keyLength = strlen(key);
+        char *keyP = malloc(keyLength + 1);
+        memcpy(keyP, key, keyLength);
+        keyP[keyLength] = 0;
+        RML_VERBOSE("Created key(0x%llx)", (uint64_t) keyP);
+
+        pair->key = keyP;
+        pair->value = value;
+        rmlLinkedListPush(self, pair);
+    } else {
+        pair->value = value;
+    }
+    return value;
 }

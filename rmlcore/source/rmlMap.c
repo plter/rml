@@ -5,7 +5,7 @@
 
 #include "../include/rmlMap.h"
 #include "../include/rmlLinkedMap.h"
-#include "../include/rml_debug_out.h"
+#include "../include/rml_log.h"
 #include "../include/key_utils.h"
 #include <stdlib.h>
 #include <string.h>
@@ -16,7 +16,7 @@ static int64_t rmlPrimeNumberList[] = rml_PRIME_NUMBERS;
 struct rmlMap_ {
     void **linearSpace_;
     int64_t currentPrimeNumberIndex_;
-    int64_t currentPrimeNumber_;
+    int64_t currentLinearSpaceSize_;
     int64_t length_;
 };
 
@@ -24,26 +24,26 @@ static void rmlMapReset(struct rmlMap_ *self) {
     self->linearSpace_ = NULL;
     self->currentPrimeNumberIndex_ = 0;
     self->length_ = 0;
-    self->currentPrimeNumber_ = rmlPrimeNumberList[self->currentPrimeNumberIndex_];
+    self->currentLinearSpaceSize_ = rmlPrimeNumberList[self->currentPrimeNumberIndex_];
 }
 
 static void **rmlMapLinearSpaceCreate_(struct rmlMap_ *map) {
-    RML_DEBUG("Create Map Linear Space")
-    int64_t memSize = sizeof(void *) * map->currentPrimeNumber_;
+    RML_VERBOSE("Create Map Linear Space")
+    int64_t memSize = sizeof(void *) * map->currentLinearSpaceSize_;
     void **space = malloc(memSize);
-    for (int i = 0; i < map->currentPrimeNumber_; ++i) {
+    for (int i = 0; i < map->currentLinearSpaceSize_; ++i) {
         space[i] = NULL;
     }
     return space;
 }
 
 static void rmlMapLinearSpaceDestroy(void **space) {
-    RML_DEBUG("Destroy Map Linear Space")
+    RML_VERBOSE("Destroy Map Linear Space")
     free(space);
 }
 
 void *rmlMapCreate() {
-    RML_DEBUG("Create Map");
+    RML_VERBOSE("Create Map");
     struct rmlMap_ *map = malloc(sizeof(struct rmlMap_));
     rmlMapReset(map);
     map->linearSpace_ = rmlMapLinearSpaceCreate_(map);
@@ -65,7 +65,7 @@ struct rmlMapRehashEachCallbackAttachment {
  */
 static void *rmlMapJustPut_(void *self, char *key, void *value) {
     struct rmlMap_ *theMap = self;
-    int64_t index = rml_encode_key(key, theMap->currentPrimeNumber_);
+    int64_t index = rml_encode_key(key, theMap->currentLinearSpaceSize_);
     void *linkedMap = theMap->linearSpace_[index];
     if (linkedMap == NULL) {
         linkedMap = rmlLinkedMapCreate();
@@ -87,14 +87,14 @@ static bool rmlMapRehashEachCallback(rmlLinkedMapEachCallbackContext *context) {
 void *rmlMapPut(void *self, char *key, void *value) {
     struct rmlMap_ *theMap = self;
 
-    if (rmlMapGetLength(theMap) > theMap->currentPrimeNumber_ * 3 / 5) {
+    if (rmlMapGetLength(theMap) > theMap->currentLinearSpaceSize_ * 3 / 5) {
         if (theMap->currentPrimeNumberIndex_ < rml_PRIME_NUMBERS_COUNT - 1) {
             // Store old properties
             void **oldSpace = theMap->linearSpace_;
-            int64_t oldPrimeNumber = theMap->currentPrimeNumber_;
+            int64_t oldPrimeNumber = theMap->currentLinearSpaceSize_;
 
             theMap->currentPrimeNumberIndex_++;
-            theMap->currentPrimeNumber_ = rmlPrimeNumberList[theMap->currentPrimeNumberIndex_];
+            theMap->currentLinearSpaceSize_ = rmlPrimeNumberList[theMap->currentPrimeNumberIndex_];
             // Rehash the linear space
             theMap->linearSpace_ = rmlMapLinearSpaceCreate_(theMap);
             theMap->length_ = 0;
@@ -117,7 +117,7 @@ void *rmlMapPut(void *self, char *key, void *value) {
 void *rmlMapRemove(void *self, char *key) {
     assert(key != NULL);
     struct rmlMap_ *theMap = self;
-    int64_t index = rml_encode_key(key, theMap->currentPrimeNumber_);
+    int64_t index = rml_encode_key(key, theMap->currentLinearSpaceSize_);
     void *linkedMap = theMap->linearSpace_[index];
     if (linkedMap == NULL) {
         return NULL;
@@ -138,7 +138,7 @@ void *rmlMapGet(void *self, char *key) {
     assert(key != NULL);
     struct rmlMap_ *theMap = self;
 
-    int64_t index = rml_encode_key(key, theMap->currentPrimeNumber_);
+    int64_t index = rml_encode_key(key, theMap->currentLinearSpaceSize_);
     void *linkedMap = theMap->linearSpace_[index];
     if (linkedMap == NULL) {
         return NULL;
@@ -151,12 +151,16 @@ int64_t rmlMapGetLength(void *self) {
     return ((struct rmlMap_ *) self)->length_;
 }
 
+int64_t rmlMapGetLinearSpaceSize(void *self) {
+    return ((struct rmlMap_ *) self)->currentLinearSpaceSize_;
+}
+
 void rmlMapDestroy(void *self) {
     struct rmlMap_ *theMap = self;
-    for (int i = 0; i < theMap->currentPrimeNumber_; ++i) {
+    for (int i = 0; i < theMap->currentLinearSpaceSize_; ++i) {
         rmlLinkedMapDestroy(theMap->linearSpace_[i]);
     }
     rmlMapLinearSpaceDestroy(theMap->linearSpace_);
     free(theMap);
-    RML_DEBUG("Destroy Map")
+    RML_VERBOSE("Destroy Map")
 }

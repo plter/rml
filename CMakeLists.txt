@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 project(rml C)
 
-add_compile_definitions(RML_LOG_LEVEL=1)
+add_compile_definitions(RML_LOG_LEVEL=3)
 
 add_subdirectory(rmlcore)
 add_subdirectory(examples/helloworld)

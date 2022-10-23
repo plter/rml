@@ -19,4 +19,6 @@ int64_t rmlMapGetLength(void *self);
 
 void rmlMapDestroy(void *self);
 
+int64_t rmlMapGetLinearSpaceSize(void *self);
+
 #endif //RML_RMLMAP_H

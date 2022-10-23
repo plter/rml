@@ -3,8 +3,9 @@
 //
 
 #include <rmlLinkedMap.h>
-#include <rml_debug_out.h>
+#include <rml_log.h>
 #include <stdio.h>
+#include <string.h>
 
 bool printValue(rmlLinkedMapEachCallbackContext *context) {
     RML_INFO("%s = %s", context->key, (char *) context->value);
@@ -14,8 +15,8 @@ bool printValue(rmlLinkedMapEachCallbackContext *context) {
 int main() {
 
     void *map = rmlLinkedMapCreate();
-    rmlLinkedMapPut(map, "name", "C Language");
     rmlLinkedMapPut(map, "age", "30");
+    rmlLinkedMapPut(map, "name", "C Language");
     rmlLinkedMapPut(map, "gender", "male");
     RML_INFO("Length: %lld", rmlLinkedMapGetLength(map));
 

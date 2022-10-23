@@ -2,7 +2,7 @@
 // Created by peter on 2022/10/4.
 //
 
-#include <rml_debug_out.h>
+#include <rml_log.h>
 
 int main() {
     RML_DEBUG("Hello World %d", 100)

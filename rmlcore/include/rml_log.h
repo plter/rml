@@ -2,13 +2,13 @@
 // Created by peter on 2022/10/4.
 //
 
-#ifndef RML_RML_DEBUG_OUT_H
-#define RML_RML_DEBUG_OUT_H
+#pragma once
 
-#define RML_LOG_LEVEL_DEBUG 1
-#define RML_LOG_LEVEL_INFO 2
-#define RML_LOG_LEVEL_WARN 3
-#define RML_LOG_LEVEL_ERROR 4
+#define RML_LOG_LEVEL_VERBOSE 1
+#define RML_LOG_LEVEL_DEBUG 2
+#define RML_LOG_LEVEL_INFO 3
+#define RML_LOG_LEVEL_WARN 4
+#define RML_LOG_LEVEL_ERROR 5
 
 #ifndef RML_LOG_LEVEL
 #define RML_LOG_LEVEL RML_LOG_LEVEL_INFO
@@ -25,6 +25,7 @@
     printf("\n");                                                   \
 }
 
+#define RML_LOG_VERBOSE_ENABLED RML_LOG_LEVEL<=RML_LOG_LEVEL_VERBOSE
 #define RML_LOG_DEBUG_ENABLED RML_LOG_LEVEL<=RML_LOG_LEVEL_DEBUG
 #define RML_LOG_INFO_ENABLED RML_LOG_LEVEL<=RML_LOG_LEVEL_INFO
 #define RML_LOG_WARN_ENABLED RML_LOG_LEVEL<=RML_LOG_LEVEL_WARN
@@ -33,6 +34,11 @@
 #define RML_DEBUG(FORMAT, ARGS...)          \
     if(RML_LOG_DEBUG_ENABLED){ \
         RML_OUTPUT("DEBUG",FORMAT,##ARGS)   \
+    }
+
+#define RML_VERBOSE(FORMAT, ARGS...)          \
+    if(RML_LOG_VERBOSE_ENABLED){ \
+        RML_OUTPUT("VERBOSE",FORMAT,##ARGS)   \
     }
 
 #define RML_INFO(FORMAT, ARGS...)           \
@@ -52,4 +58,3 @@
     }
 
 
-#endif //RML_RML_DEBUG_OUT_H

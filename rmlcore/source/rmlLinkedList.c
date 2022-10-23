@@ -3,7 +3,7 @@
 //
 
 #include "../include/rmlLinkedList.h"
-#include "../include/rml_debug_out.h"
+#include "../include/rml_log.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -31,16 +31,15 @@ static void rmlLinkedListItemReset(struct rmlLinkedListItem *item) {
 static struct rmlLinkedListItem *rml_LinkedListItemCreate() {
     struct rmlLinkedListItem *item = malloc(sizeof(struct rmlLinkedListItem));
     rmlLinkedListItemReset(item);
-    RML_DEBUG("Create LinkedListItem");
+    RML_VERBOSE("Created LinkedListItem(0x%llx)", (uint64_t) item);
     return item;
 }
 
 static void rmlLinkedListItemDestroy(struct rmlLinkedListItem *item) {
     if (item != NULL) {
         rmlLinkedListItemReset(item);
+        RML_VERBOSE("Destroy LinkedListItem at 0x%llx", (uint64_t) item);
         free(item);
-
-        RML_DEBUG("Destroy LinkedListItem");
     }
 }
 
@@ -59,7 +58,7 @@ void *rmlLinkedListCreate() {
     struct rmlLinkedList *map = malloc(sizeof(struct rmlLinkedList));
     rmlLinkedListReset(map);
 
-    RML_DEBUG("Create LinkedList")
+    RML_VERBOSE("Created LinkedList(0x%llx)", (uint64_t) map)
     return map;
 }
 
@@ -71,9 +70,8 @@ void rmlLinkedListDestroy(void *self) {
     }
 
     rmlLinkedListReset(self);
+    RML_VERBOSE("Destroy LinkedList(0x%llx)", (uint64_t) m)
     free(m);
-
-    RML_DEBUG("Destroy LinkedList")
 }
 
 
